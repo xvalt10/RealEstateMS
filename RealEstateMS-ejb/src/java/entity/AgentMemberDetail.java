@@ -110,7 +110,7 @@ public class AgentMemberDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "entityBeans.AgentMemberDetail[ memberId=" + memberId + " ]";
+        return "entity.AgentMemberDetail[ memberId=" + memberId + " ]";
     }
     
 }

@@ -161,7 +161,7 @@ public class PropertyCategoryMaster implements Serializable {
 
     @Override
     public String toString() {
-        return "entityBeans.PropertyCategoryMaster[ categoryId=" + categoryId + " ]";
+        return "entity.PropertyCategoryMaster[ categoryId=" + categoryId + " ]";
     }
     
 }

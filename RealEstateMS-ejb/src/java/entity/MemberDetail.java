@@ -41,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MemberDetail.findByMobileNumber", query = "SELECT m FROM MemberDetail m WHERE m.mobileNumber = :mobileNumber"),
     @NamedQuery(name = "MemberDetail.findByEmaiIId", query = "SELECT m FROM MemberDetail m WHERE m.emaiIId = :emaiIId"),
     @NamedQuery(name = "MemberDetail.findByNewsletterSubscription", query = "SELECT m FROM MemberDetail m WHERE m.newsletterSubscription = :newsletterSubscription"),
+    @NamedQuery(name = "MemberDetail.findByUsername", query = "SELECT m FROM MemberDetail m WHERE m.username = :username"),
     @NamedQuery(name = "MemberDetail.findByPassword", query = "SELECT m FROM MemberDetail m WHERE m.password = :password")})
 public class MemberDetail implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -70,9 +71,12 @@ public class MemberDetail implements Serializable {
     private String emaiIId;
     @Column(name = "newsletterSubscription")
     private Boolean newsletterSubscription;
+    @Size(max = 50)
+    @Column(name = "username")
+    private String username;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 64)
     @Column(name = "password")
     private String password;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "postedBy")
@@ -90,6 +94,25 @@ public class MemberDetail implements Serializable {
     public MemberDetail() {
     }
 
+    public MemberDetail(String memberId, String name, String address, String pincode, String phoneNnumber, String mobileNumber, String emaiIId, Boolean newsletterSubscription, String username, String password, Collection<PropertyDetails> propertyDetailsCollection, BuyerMemberDetail buyerMemberDetail, MemberCategoryMaster memberCategoryId, AgentMemberDetail agentMemberDetail, Collection<AdvertisementSubscriptionDetail> advertisementSubscriptionDetailCollection) {
+        this.memberId = memberId;
+        this.name = name;
+        this.address = address;
+        this.pincode = pincode;
+        this.phoneNnumber = phoneNnumber;
+        this.mobileNumber = mobileNumber;
+        this.emaiIId = emaiIId;
+        this.newsletterSubscription = newsletterSubscription;
+        this.username = username;
+        this.password = password;
+        this.propertyDetailsCollection = propertyDetailsCollection;
+        this.buyerMemberDetail = buyerMemberDetail;
+        this.memberCategoryId = memberCategoryId;
+        this.agentMemberDetail = agentMemberDetail;
+        this.advertisementSubscriptionDetailCollection = advertisementSubscriptionDetailCollection;
+    }
+
+    
     public MemberDetail(String memberId) {
         this.memberId = memberId;
     }
@@ -161,6 +184,14 @@ public class MemberDetail implements Serializable {
 
     public void setNewsletterSubscription(Boolean newsletterSubscription) {
         this.newsletterSubscription = newsletterSubscription;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -235,7 +266,7 @@ public class MemberDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "entityBeans.MemberDetail[ memberId=" + memberId + " ]";
+        return "entity.MemberDetail[ memberId=" + memberId + " ]";
     }
     
 }

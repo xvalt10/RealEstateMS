@@ -171,7 +171,7 @@ public class PropertyLocationMaster implements Serializable {
 
     @Override
     public String toString() {
-        return "entityBeans.PropertyLocationMaster[ locationId=" + locationId + " ]";
+        return "entity.PropertyLocationMaster[ locationId=" + locationId + " ]";
     }
     
 }

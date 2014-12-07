@@ -258,7 +258,7 @@ public class PropertyDetails implements Serializable {
 
     @Override
     public String toString() {
-        return "entityBeans.PropertyDetails[ propertyId=" + propertyId + " ]";
+        return "entity.PropertyDetails[ propertyId=" + propertyId + " ]";
     }
     
 }

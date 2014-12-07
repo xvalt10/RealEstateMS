@@ -11,7 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -31,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PropertyApproval.findAll", query = "SELECT p FROM PropertyApproval p"),
     @NamedQuery(name = "PropertyApproval.findByPropertyId", query = "SELECT p FROM PropertyApproval p WHERE p.propertyId = :propertyId"),
     @NamedQuery(name = "PropertyApproval.findByApprovalStatus", query = "SELECT p FROM PropertyApproval p WHERE p.approvalStatus = :approvalStatus"),
-    @NamedQuery(name = "PropertyApproval.findByApprovalDescription", query = "SELECT p FROM PropertyApproval p WHERE p.approvalDescription = :approvalDescription")})
+    @NamedQuery(name = "PropertyApproval.findByApprovalDescription", query = "SELECT p FROM PropertyApproval p WHERE p.approvalDescription = :approvalDescription"),
+    @NamedQuery(name = "PropertyApproval.findByApproverId", query = "SELECT p FROM PropertyApproval p WHERE p.approverId = :approverId")})
 public class PropertyApproval implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,9 +50,11 @@ public class PropertyApproval implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "approvalDescription")
     private String approvalDescription;
-    @JoinColumn(name = "approverId", referencedColumnName = "userId")
-    @ManyToOne(optional = false)
-    private AdministratorLogin approverId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "approverId")
+    private String approverId;
     @JoinColumn(name = "propertyId", referencedColumnName = "propertyId", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private PropertyDetails propertyDetails;
@@ -64,10 +66,11 @@ public class PropertyApproval implements Serializable {
         this.propertyId = propertyId;
     }
 
-    public PropertyApproval(String propertyId, String approvalStatus, String approvalDescription) {
+    public PropertyApproval(String propertyId, String approvalStatus, String approvalDescription, String approverId) {
         this.propertyId = propertyId;
         this.approvalStatus = approvalStatus;
         this.approvalDescription = approvalDescription;
+        this.approverId = approverId;
     }
 
     public String getPropertyId() {
@@ -94,11 +97,11 @@ public class PropertyApproval implements Serializable {
         this.approvalDescription = approvalDescription;
     }
 
-    public AdministratorLogin getApproverId() {
+    public String getApproverId() {
         return approverId;
     }
 
-    public void setApproverId(AdministratorLogin approverId) {
+    public void setApproverId(String approverId) {
         this.approverId = approverId;
     }
 
@@ -132,7 +135,7 @@ public class PropertyApproval implements Serializable {
 
     @Override
     public String toString() {
-        return "entityBeans.PropertyApproval[ propertyId=" + propertyId + " ]";
+        return "entity.PropertyApproval[ propertyId=" + propertyId + " ]";
     }
     
 }

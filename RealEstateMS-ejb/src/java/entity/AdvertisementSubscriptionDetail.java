@@ -161,7 +161,7 @@ public class AdvertisementSubscriptionDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "entityBeans.AdvertisementSubscriptionDetail[ packageId=" + packageId + " ]";
+        return "entity.AdvertisementSubscriptionDetail[ packageId=" + packageId + " ]";
     }
     
 }

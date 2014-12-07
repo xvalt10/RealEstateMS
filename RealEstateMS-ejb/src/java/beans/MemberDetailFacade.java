@@ -7,6 +7,7 @@ package beans;
 
 import entity.MemberDetail;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,6 +16,7 @@ import javax.persistence.PersistenceContext;
  * @author Tomas
  */
 @Stateless
+@Named("MemberDetailFacade")
 public class MemberDetailFacade extends AbstractFacade<MemberDetail> {
     @PersistenceContext(unitName = "RealEstateMS-ejbPU")
     private EntityManager em;

@@ -16,6 +16,8 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class PropertyCategoryMasterFacade extends AbstractFacade<PropertyCategoryMaster> {
+    
+    
     @PersistenceContext(unitName = "RealEstateMS-ejbPU")
     private EntityManager em;
 

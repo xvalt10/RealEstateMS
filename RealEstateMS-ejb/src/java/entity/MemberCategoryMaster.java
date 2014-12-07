@@ -122,7 +122,7 @@ public class MemberCategoryMaster implements Serializable {
 
     @Override
     public String toString() {
-        return "entityBeans.MemberCategoryMaster[ memberCategoryId=" + memberCategoryId + " ]";
+        return "entity.MemberCategoryMaster[ memberCategoryId=" + memberCategoryId + " ]";
     }
     
 }

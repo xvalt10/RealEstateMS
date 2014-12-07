@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+           
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form>
+                        <h1><h:outputText value="Create/Edit"/></h1>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Username:" for="username" />
+                            <h:inputText id="username" value="#{memberManagedBean.member.username}" title="Username" />
+                            <h:outputLabel value="Password:" for="password" />
+                            <h:inputText id="password" value="#{memberManagedBean.member.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
+                            
+                            <h:outputLabel value="Name:" for="name" />
+                            <h:inputText id="name" value="#{memberManagedBean.member.name}" title="Name" />
+                            <h:outputLabel value="Address:" for="address" />
+                            <h:inputText id="address" value="#{memberManagedBean.member.address}" title="Address" />
+                            <h:outputLabel value="Pincode:" for="pincode" />
+                            <h:inputText id="pincode" value="#{memberManagedBean.member.pincode}" title="Pincode" />
+                            <h:outputLabel value="Phone number:" for="phoneNnumber" />
+                            <h:inputText id="phoneNnumber" value="#{memberManagedBean.member.phoneNnumber}" title="PhoneNnumber" />
+                            <h:outputLabel value="Mobile number:" for="mobileNumber" />
+                            <h:inputText id="mobileNumber" value="#{memberManagedBean.member.mobileNumber}" title="MobileNumber" />
+                            <h:outputLabel value="EmaiIId:" for="emaiIId" />
+                            <h:inputText id="emaiIId" value="#{memberManagedBean.member.emaiIId}" title="EmaiIId" />
+                            <h:outputLabel value="Newsletter subscription:" for="newsletterSubscription" />
+                            <h:inputText id="newsletterSubscription" value="#{memberManagedBean.member.newsletterSubscription}" title="NewsletterSubscription" />
+                            <h:outputLabel value="Member category:" for="memberCategoryId" />
+                            <h:selectOneMenu id="memberCategoryId" value="#{memberManagedBean.member.memberCategoryId}" title="MemberCategoryId" required="true" requiredMessage="The MemberCategoryId field is required.">
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItem itemValue="1" itemLabel="Buyer" />
+                                <f:selectItem itemValue="2" itemLabel="Seller"/>
+                                <f:selectItem itemValue="3" itemLabel="Agent" />
+                                <f:selectItem itemValue="4" itemLabel="Administrator"/>
+                                <f:ajax event="change" render="model" listener="#{memberManagedBean}" >
+                                   
+                                </f:ajax>
+                            </h:selectOneMenu>
+                            
+                            <h:outputLabel value="Property Area:" for="propertyArea" rendered="#{memberManagedBean.memberCategry == 1}"/>
+                            <h:inputText id="propertyArea" value="#{memberManagedBean.buyerMemberDetail.propertyArea}" title="PropertyArea" required="true" requiredMessage="The PropertyArea field is required." rendered="#{memberManagedBean.memberCategry  == 1}"/>
+                            <h:outputLabel value="Property Budget:" for="propertyBudget" rendered="#{memberManagedBean.memberCategry  == 1}"/>
+                            <h:inputText id="propertyBudget" value="#{memberManagedBean.buyerMemberDetail.propertyBudget}" title="PropertyBudget" required="true" requiredMessage="The PropertyBudget field is required." rendered="#{memberManagedBean.memberCategry  == 1}"/>
+                            
+                           
+                        </h:panelGrid>
+                        
+                    </h:form>
+
+
+            
+
+                </f:view>
+
+            </ui:define>
+           
+           
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -132,7 +132,7 @@ public class BuyerMemberDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "entityBeans.BuyerMemberDetail[ memberId=" + memberId + " ]";
+        return "entity.BuyerMemberDetail[ memberId=" + memberId + " ]";
     }
     
 }
