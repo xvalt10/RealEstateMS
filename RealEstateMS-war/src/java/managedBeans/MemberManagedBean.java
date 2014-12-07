@@ -69,8 +69,8 @@ public class MemberManagedBean {
     
     @PostConstruct
     public void init(){
-        memberCategry=1;
-    member.setMemberCategoryId(memberCategoryMasterFacade.find("1"));
+        
+    member.setMemberCategoryId((MemberCategoryMaster)memberCategoryMasterFacade.find("1"));
     }
     
 

@@ -15,8 +15,8 @@
                 <f:view>
 
 
-                    <h:form>
-                        <h1><h:outputText value="Create/Edit"/></h1>
+                    <h:form id="registrationForm">
+                        <h1><h:outputText value="Member Registration"/></h1>
                         <h:panelGrid columns="2">
                             <h:outputLabel value="Username:" for="username" />
                             <h:inputText id="username" value="#{memberManagedBean.member.username}" title="Username" />
@@ -38,15 +38,15 @@
                             <h:outputLabel value="Newsletter subscription:" for="newsletterSubscription" />
                             <h:inputText id="newsletterSubscription" value="#{memberManagedBean.member.newsletterSubscription}" title="NewsletterSubscription" />
                             <h:outputLabel value="Member category:" for="memberCategoryId" />
-                            <h:selectOneMenu id="memberCategoryId" value="#{memberManagedBean.member.memberCategoryId}" title="MemberCategoryId" required="true" requiredMessage="The MemberCategoryId field is required.">
+                            <h:selectOneMenu id="memberCategoryId" value="#{memberManagedBean.memberCategry}" title="MemberCategoryId" required="true" requiredMessage="The MemberCategoryId field is required.">
                                 <!-- TODO: update below reference to list of available items-->
                                 <f:selectItem itemValue="1" itemLabel="Buyer" />
                                 <f:selectItem itemValue="2" itemLabel="Seller"/>
                                 <f:selectItem itemValue="3" itemLabel="Agent" />
                                 <f:selectItem itemValue="4" itemLabel="Administrator"/>
-                                <f:ajax event="change" render="model" listener="#{memberManagedBean}" >
+                                <f:ajax event="change" render="registrationForm"/> 
                                    
-                                </f:ajax>
+                               
                             </h:selectOneMenu>
                             
                             <h:outputLabel value="Property Area:" for="propertyArea" rendered="#{memberManagedBean.memberCategry == 1}"/>
