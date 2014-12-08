@@ -4,3 +4,6 @@
 /dist/
 /RealEstateMS-war/dist/
 /RealEstateMS-war/build/
+/nbproject/private/
+/RealEstateMS-war/nbproject/private/
+/RealEstateMS-ejb/nbproject/private/

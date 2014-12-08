@@ -31,7 +31,7 @@ public class MemberManagedBean {
     @EJB
     MemberDetailFacade memberDetailFacade;
     
-    private int memberCategry;
+    private int memberCategry=1;
 
     public int getMemberCategry() {
         return memberCategry;
@@ -70,7 +70,7 @@ public class MemberManagedBean {
     @PostConstruct
     public void init(){
         
-    member.setMemberCategoryId((MemberCategoryMaster)memberCategoryMasterFacade.find("1"));
+    
     }
     
 

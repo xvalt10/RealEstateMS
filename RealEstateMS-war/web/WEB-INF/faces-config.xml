@@ -12,6 +12,12 @@
             <from-outcome>login</from-outcome>
             <to-view-id>/faces/login.xhtml</to-view-id>
         </navigation-case>
+        
+         <navigation-case>
+            
+            <from-outcome>registration</from-outcome>
+            <to-view-id>/faces/registration.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     
     
