@@ -53,7 +53,7 @@
                             <h:inputText id="propertyArea" value="#{memberManagedBean.buyerMemberDetail.propertyArea}" title="PropertyArea" required="true" requiredMessage="The PropertyArea field is required." rendered="#{memberManagedBean.memberCategry  == 1}"/>
                             <h:outputLabel value="Property Budget:" for="propertyBudget" rendered="#{memberManagedBean.memberCategry  == 1}"/>
                             <h:inputText id="propertyBudget" value="#{memberManagedBean.buyerMemberDetail.propertyBudget}" title="PropertyBudget" required="true" requiredMessage="The PropertyBudget field is required." rendered="#{memberManagedBean.memberCategry  == 1}"/>
-                            
+                            <h:commandButton value="Submit" action="#{memberManagedBean.registerMember()}"/>
                            
                         </h:panelGrid>
                         

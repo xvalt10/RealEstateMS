@@ -11,6 +11,8 @@ import entity.BuyerMemberDetail;
 import entity.MemberCategoryMaster;
 
 import entity.MemberDetail;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -32,6 +34,14 @@ public class MemberManagedBean {
     MemberDetailFacade memberDetailFacade;
     
     private int memberCategry=1;
+    private MemberDetail member=new MemberDetail();
+    private BuyerMemberDetail buyerMemberDetail=new BuyerMemberDetail();
+    
+    @PostConstruct
+    public void init(){
+        
+    
+    }
 
     public int getMemberCategry() {
         return memberCategry;
@@ -41,15 +51,6 @@ public class MemberManagedBean {
         this.memberCategry = memberCategry;
     }
     
-    
-    
-    
-    
-    
-    
-    private MemberDetail member=new MemberDetail();
-    private BuyerMemberDetail buyerMemberDetail=new BuyerMemberDetail();
-
     public MemberDetail getMember() {
         return member;
     }
@@ -66,17 +67,35 @@ public class MemberManagedBean {
         this.buyerMemberDetail = buyerMemberDetail;
     }
     
+    public String encryptPassword(String password)   {  
+  
     
-    @PostConstruct
-    public void init(){
-        
-    
+    try {
+      MessageDigest md = MessageDigest.getInstance("SHA-256");
+      md.update(password.getBytes());
+      return new sun.misc.BASE64Encoder().encode(md.digest());
+    } catch (NoSuchAlgorithmException e) {
+      //_log.error("Failed to encrypt password.", e);
     }
+    return "";
+  }
     
 
-    public void changeCategory(){
+    
+    
+    
+    
+    public void registerMember(){
+        member.setPassword(encryptPassword(member.getPassword()));
+        member.setBuyerMemberDetail(buyerMemberDetail);
+        member.setMemberId("agent"+(memberDetailFacade.count()+1));
+        member.setMemberCategoryId(memberCategoryMasterFacade.find(String.valueOf(memberCategry)));
+        memberDetailFacade.create(member);
     
     }
+
+    
+    
     /**
      * Creates a new instance of NewJSFManagedBean
      */
