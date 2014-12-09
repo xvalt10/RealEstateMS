@@ -5,12 +5,12 @@
  */
 package managedBeans;
 
-import beans.MemberCategoryMasterFacade;
-import beans.MemberDetailFacade;
-import entity.BuyerMemberDetail;
-import entity.MemberCategoryMaster;
+import beans.MembercategorymasterFacade;
+import beans.MemberdetailFacade;
+import entity.Buyermemberdetail;
+import entity.Membercategorymaster;
 
-import entity.MemberDetail;
+import entity.Memberdetail;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
@@ -28,14 +28,14 @@ import javax.inject.Inject;
 @SessionScoped
 public class MemberManagedBean {
     @EJB
-    private MemberCategoryMasterFacade memberCategoryMasterFacade;
+    private MembercategorymasterFacade memberCategoryMasterFacade;
     
     @EJB
-    MemberDetailFacade memberDetailFacade;
+    MemberdetailFacade memberDetailFacade;
     
-    private int memberCategry=1;
-    private MemberDetail member=new MemberDetail();
-    private BuyerMemberDetail buyerMemberDetail=new BuyerMemberDetail();
+    private String memberCategry="cat01";
+    private Memberdetail member=new Memberdetail();
+    private Buyermemberdetail buyerMemberDetail=new Buyermemberdetail();
     
     @PostConstruct
     public void init(){
@@ -43,34 +43,33 @@ public class MemberManagedBean {
     
     }
 
-    public int getMemberCategry() {
+    public String getMemberCategry() {
         return memberCategry;
     }
 
-    public void setMemberCategry(int memberCategry) {
+    public void setMemberCategry(String memberCategry) {
         this.memberCategry = memberCategry;
     }
     
-    public MemberDetail getMember() {
+    public Memberdetail getMember() {
         return member;
     }
 
-    public void setMember(MemberDetail member) {
+    public void setMember(Memberdetail member) {
         this.member = member;
     }
 
-    public BuyerMemberDetail getBuyerMemberDetail() {
+    public Buyermemberdetail getBuyerMemberDetail() {
         return buyerMemberDetail;
     }
 
-    public void setBuyerMemberDetail(BuyerMemberDetail buyerMemberDetail) {
+    public void setBuyerMemberDetail(Buyermemberdetail buyerMemberDetail) {
         this.buyerMemberDetail = buyerMemberDetail;
     }
     
     public String encryptPassword(String password)   {  
   
-    
-    try {
+        try {
       MessageDigest md = MessageDigest.getInstance("SHA-256");
       md.update(password.getBytes());
       return new sun.misc.BASE64Encoder().encode(md.digest());
@@ -79,19 +78,15 @@ public class MemberManagedBean {
     }
     return "";
   }
-    
-
-    
-    
-    
-    
+ 
     public void registerMember(){
-        member.setPassword(encryptPassword(member.getPassword()));
-        member.setBuyerMemberDetail(buyerMemberDetail);
-        member.setMemberId("agent"+(memberDetailFacade.count()+1));
-        member.setMemberCategoryId(memberCategoryMasterFacade.find(String.valueOf(memberCategry)));
+        
+      // member.setPassword(encryptPassword(member.getPassword()));
+        member.setBuyermemberdetail(buyerMemberDetail);
+        member.setMemberid("agent"+(memberDetailFacade.count()+1));
+        member.setMembercategoryid(memberCategoryMasterFacade.find(memberCategry));
         memberDetailFacade.create(member);
-    
+        
     }
 
     

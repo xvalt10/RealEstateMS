@@ -30,17 +30,17 @@
                             <h:outputLabel value="Pincode:" for="pincode" />
                             <h:inputText id="pincode" value="#{memberManagedBean.member.pincode}" title="Pincode" />
                             <h:outputLabel value="Phone number:" for="phoneNnumber" />
-                            <h:inputText id="phoneNnumber" value="#{memberManagedBean.member.phoneNnumber}" title="PhoneNnumber" />
+                            <h:inputText id="phoneNnumber" value="#{memberManagedBean.member.phonennumber}" title="PhoneNnumber" />
                             <h:outputLabel value="Mobile number:" for="mobileNumber" />
-                            <h:inputText id="mobileNumber" value="#{memberManagedBean.member.mobileNumber}" title="MobileNumber" />
+                            <h:inputText id="mobileNumber" value="#{memberManagedBean.member.mobilenumber}" title="MobileNumber" />
                             <h:outputLabel value="EmaiIId:" for="emaiIId" />
-                            <h:inputText id="emaiIId" value="#{memberManagedBean.member.emaiIId}" title="EmaiIId" />
+                            <h:inputText id="emaiIId" value="#{memberManagedBean.member.emaiiid}" title="EmaiIId" />
                             <h:outputLabel value="Newsletter subscription:" for="newsletterSubscription" />
-                            <h:inputText id="newsletterSubscription" value="#{memberManagedBean.member.newsletterSubscription}" title="NewsletterSubscription" />
+                            <h:inputText id="newsletterSubscription" value="#{memberManagedBean.member.newslettersubscription}" title="NewsletterSubscription" />
                             <h:outputLabel value="Member category:" for="memberCategoryId" />
                             <h:selectOneMenu id="memberCategoryId" value="#{memberManagedBean.memberCategry}" title="MemberCategoryId" required="true" requiredMessage="The MemberCategoryId field is required.">
                                 <!-- TODO: update below reference to list of available items-->
-                                <f:selectItem itemValue="1" itemLabel="Buyer" />
+                                <f:selectItem itemValue="cat01" itemLabel="Buyer" />
                                 <f:selectItem itemValue="2" itemLabel="Seller"/>
                                 <f:selectItem itemValue="3" itemLabel="Agent" />
                                 <f:selectItem itemValue="4" itemLabel="Administrator"/>
@@ -49,10 +49,10 @@
                                
                             </h:selectOneMenu>
                             
-                            <h:outputLabel value="Property Area:" for="propertyArea" rendered="#{memberManagedBean.memberCategry == 1}"/>
-                            <h:inputText id="propertyArea" value="#{memberManagedBean.buyerMemberDetail.propertyArea}" title="PropertyArea" required="true" requiredMessage="The PropertyArea field is required." rendered="#{memberManagedBean.memberCategry  == 1}"/>
-                            <h:outputLabel value="Property Budget:" for="propertyBudget" rendered="#{memberManagedBean.memberCategry  == 1}"/>
-                            <h:inputText id="propertyBudget" value="#{memberManagedBean.buyerMemberDetail.propertyBudget}" title="PropertyBudget" required="true" requiredMessage="The PropertyBudget field is required." rendered="#{memberManagedBean.memberCategry  == 1}"/>
+                            <h:outputLabel value="Property Area:" for="propertyArea" rendered="#{memberManagedBean.memberCategry == 'cat01'}"/>
+                            <h:inputText id="propertyArea" value="#{memberManagedBean.buyerMemberDetail.propertyarea}" title="PropertyArea" required="true" requiredMessage="The PropertyArea field is required." rendered="#{memberManagedBean.memberCategry  == 'cat01'}"/>
+                            <h:outputLabel value="Property Budget:" for="propertyBudget" rendered="#{memberManagedBean.memberCategry  == 'cat01'}"/>
+                            <h:inputText id="propertyBudget" value="#{memberManagedBean.buyerMemberDetail.propertybudget}" title="PropertyBudget" required="true" requiredMessage="The PropertyBudget field is required." rendered="#{memberManagedBean.memberCategry  == 'cat01'}"/>
                             <h:commandButton value="Submit" action="#{memberManagedBean.registerMember()}"/>
                            
                         </h:panelGrid>

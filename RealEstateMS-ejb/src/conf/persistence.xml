@@ -3,6 +3,11 @@
   <persistence-unit name="RealEstateMS-ejbPU" transaction-type="JTA">
     <jta-data-source>jdbc/AptechDB</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    
+    <properties>
+         <property name="eclipselink.logging.level.sql" value="FINE"/>
+         <property name="eclipselink.logging.parameters" value="true"/>
+    </properties>
   </persistence-unit>
+
 </persistence>
