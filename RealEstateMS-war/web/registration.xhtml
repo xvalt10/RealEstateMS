@@ -38,7 +38,7 @@
                             <h:outputLabel value="Newsletter subscription:" for="newsletterSubscription" />
                             <h:inputText id="newsletterSubscription" value="#{memberManagedBean.member.newsletterSubscription}" title="NewsletterSubscription" />
                             <h:outputLabel value="Member category:" for="memberCategoryId" />
-                            <h:selectOneMenu id="memberCategoryId" value="#{memberManagedBean.memberCategry}" title="MemberCategoryId" required="true" requiredMessage="The MemberCategoryId field is required.">
+                            <h:selectOneMenu id="memberCategoryId" value="#{memberManagedBean.memberCategory}" title="MemberCategoryId" required="true" requiredMessage="The MemberCategoryId field is required.">
                                 <!-- TODO: update below reference to list of available items-->
                                 <f:selectItem itemValue="1" itemLabel="Buyer" />
                                 <f:selectItem itemValue="2" itemLabel="Seller"/>
@@ -49,16 +49,29 @@
                                
                             </h:selectOneMenu>
                             
-                            <h:outputLabel value="Property Area:" for="propertyArea" rendered="#{memberManagedBean.memberCategry == 1}"/>
-                            <h:inputText id="propertyArea" value="#{memberManagedBean.buyerMemberDetail.propertyArea}" title="PropertyArea" required="true" requiredMessage="The PropertyArea field is required." rendered="#{memberManagedBean.memberCategry  == 1}"/>
-                            <h:outputLabel value="Property Budget:" for="propertyBudget" rendered="#{memberManagedBean.memberCategry  == 1}"/>
-                            <h:inputText id="propertyBudget" value="#{memberManagedBean.buyerMemberDetail.propertyBudget}" title="PropertyBudget" required="true" requiredMessage="The PropertyBudget field is required." rendered="#{memberManagedBean.memberCategry  == 1}"/>
+                            <h:outputLabel value="Property Area:" for="propertyArea" rendered="#{memberManagedBean.memberCategory == 1}"/>
+                            <h:inputText id="propertyArea" value="#{memberManagedBean.buyerMemberDetail.propertyArea}" title="PropertyArea" required="true" requiredMessage="The PropertyArea field is required." rendered="#{memberManagedBean.memberCategory  == 1}"/>
+                            <h:outputLabel value="Property Budget:" for="propertyBudget" rendered="#{memberManagedBean.memberCategory  == 1}"/>
+                            <h:inputText id="propertyBudget" value="#{memberManagedBean.buyerMemberDetail.propertyBudget}" title="PropertyBudget" required="true" requiredMessage="The PropertyBudget field is required." rendered="#{memberManagedBean.memberCategory  == 1}"/>
+                            <h:outputLabel value="Country:" for="country" rendered="#{memberManagedBean.memberCategory == 1}"/>
+                            <h:inputText id="country" value="#{memberManagedBean.propertyLocation.country}" title="Country" required="true" requiredMessage="The Country field is required." rendered="#{memberManagedBean.memberCategory == 1}"/>
+                            <h:outputLabel value="State:" for="state" rendered="#{memberManagedBean.memberCategory == 1}"/>
+                            <h:inputText id="state" value="#{memberManagedBean.propertyLocation.state}" title="State" required="true" requiredMessage="The State field is required." rendered="#{memberManagedBean.memberCategory == 1}"/>
+                            <h:outputLabel value="City:" for="city" rendered="#{memberManagedBean.memberCategory == 1}"/>
+                            <h:inputText id="city" value="#{memberManagedBean.propertyLocation.city}" title="City" required="true" requiredMessage="The City field is required." rendered="#{memberManagedBean.memberCategory == 1}"/>
+                            <h:outputLabel value="Locality:" for="locality" rendered="#{memberManagedBean.memberCategory == 1}"/>
+                            <h:inputText id="locality" value="#{memberManagedBean.propertyLocation.locality}" title="Locality" rendered="#{memberManagedBean.memberCategory == 1}"/>
                             <h:commandButton value="Submit" action="#{memberManagedBean.registerMember()}"/>
                            
                         </h:panelGrid>
                         
                     </h:form>
 
+
+
+                   
+                            
+                        
 
             
 
