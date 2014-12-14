@@ -8,13 +8,9 @@
 
         <ui:composition template="./templates/basicTemplate.xhtml">
 
-            
-
             <ui:define name="content">
-                Welcome <h:outputText value="${request.userPrincipal}"/>
+                <h:outputText value="You are not authorized to view this page ${request.userPrincipal}."/>
             </ui:define>
-
-            
 
         </ui:composition>
 

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="../templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form enctype="multipart/form-data">
+                        <h1><h:outputText value="Create/Edit"/></h1>
+                        <h:panelGrid columns="2">
+                            
+                             <h:outputLabel value="Category:" for="categoryId" />
+                             <h:selectOneMenu id="categoryId" value="#{propertyManagedBean.propertyDetails.categoryId}" title="CategoryId" required="true" requiredMessage="The CategoryId field is required." converter="#{propertyCategoryConverter}">
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItems value="#{propertyManagedBean.propertyCategories}" var="category" itemValue="#{category.categoryId}" itemLabel="#{category.categoryName}"/>
+                            </h:selectOneMenu>
+                            <h:outputLabel value="Country:" for="country" />
+                            <h:inputText id="country" value="#{propertyManagedBean.propertyDetails.country}" title="Country" required="true" requiredMessage="The Country field is required."/>
+                            <h:outputLabel value="State:" for="state" />
+                            <h:inputText id="state" value="#{propertyManagedBean.propertyDetails.state}" title="State" required="true" requiredMessage="The State field is required."/>
+                            <h:outputLabel value="City:" for="city" />
+                            <h:inputText id="city" value="#{propertyManagedBean.propertyDetails.city}" title="City" />
+                            <h:outputLabel value="Region:" for="region" />
+                            <h:inputText id="region" value="#{propertyManagedBean.propertyDetails.region}" title="Region" />
+                            <h:outputLabel value="Area:" for="area" />
+                            <h:inputText id="area" value="#{propertyManagedBean.propertyDetails.area}" title="Area" required="true" requiredMessage="The Area field is required."/>
+                            <h:outputLabel value="Rate:" for="rate" />
+                            <h:inputText id="rate" value="#{propertyManagedBean.propertyDetails.rate}" title="Rate" />
+                            <h:outputLabel value="Lumpsum Cost:" for="lumpsumCost" />
+                            <h:inputText id="lumpsumCost" value="#{propertyManagedBean.propertyDetails.lumpsumCost}" title="LumpsumCost" />
+                            <h:outputLabel value="Image:" for="image" />
+                            <h:inputFile   id="image" value="#{propertyManagedBean.propertyDetails.image}" title="Image" />
+                            <h:outputLabel value="Property Description:" for="propertyDescription" />
+                            <h:inputText id="propertyDescription" value="#{propertyManagedBean.propertyDetails.propertyDescription}" title="PropertyDescription" required="true" requiredMessage="The PropertyDescription field is required."/>
+                            <h:outputLabel value="Property Title:" for="propertyTitle" />
+                            <h:inputText id="propertyTitle" value="#{propertyManagedBean.propertyDetails.propertyTitle}" title="PropertyTitle" required="true" requiredMessage="The PropertyTitle field is required."/>
+                            <h:commandButton value="Send for approval" action="#{propertyManagedBean.addProperty()}"/>
+                           
+                           
+                          
+                        </h:panelGrid>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

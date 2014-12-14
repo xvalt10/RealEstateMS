@@ -57,11 +57,11 @@ public class PropertyCategoryMaster implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "buyerCommission")
-    private int buyerCommission;
+    private Integer buyerCommission;
     @Basic(optional = false)
     @NotNull
     @Column(name = "sellerCommission")
-    private int sellerCommission;
+    private Integer sellerCommission;
     @Column(name = "agentCommission")
     private Integer agentCommission;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
@@ -74,7 +74,7 @@ public class PropertyCategoryMaster implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public PropertyCategoryMaster(String categoryId, String categoryName, String categoryDescription, int buyerCommission, int sellerCommission) {
+    public PropertyCategoryMaster(String categoryId, String categoryName, String categoryDescription, Integer buyerCommission, Integer sellerCommission) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryDescription = categoryDescription;
@@ -106,19 +106,19 @@ public class PropertyCategoryMaster implements Serializable {
         this.categoryDescription = categoryDescription;
     }
 
-    public int getBuyerCommission() {
+    public Integer getBuyerCommission() {
         return buyerCommission;
     }
 
-    public void setBuyerCommission(int buyerCommission) {
+    public void setBuyerCommission(Integer buyerCommission) {
         this.buyerCommission = buyerCommission;
     }
 
-    public int getSellerCommission() {
+    public Integer getSellerCommission() {
         return sellerCommission;
     }
 
-    public void setSellerCommission(int sellerCommission) {
+    public void setSellerCommission(Integer sellerCommission) {
         this.sellerCommission = sellerCommission;
     }
 

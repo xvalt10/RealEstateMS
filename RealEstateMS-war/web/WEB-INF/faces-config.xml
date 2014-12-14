@@ -5,19 +5,41 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <navigation-rule>
         <description>Forward to login page</description>
-        <from-view-id>/faces/index.xhtml</from-view-id>
+        <from-view-id>*</from-view-id>
         
         <navigation-case>
             
             <from-outcome>login</from-outcome>
-            <to-view-id>/faces/login.xhtml</to-view-id>
+            <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
         
          <navigation-case>
             
             <from-outcome>registration</from-outcome>
-            <to-view-id>/faces/registration.xhtml</to-view-id>
+            <to-view-id>/registration.xhtml</to-view-id>
         </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <description>Forward to property categories</description>
+        <from-view-id>*</from-view-id>
+        
+        <navigation-case>
+            <from-outcome>propertyCategories</from-outcome>
+            <to-view-id>/admin/propertyCategoryMgmt.xhtml</to-view-id>
+        </navigation-case>
+      
+    </navigation-rule>
+    
+      <navigation-rule>
+        <description>Forward to sell realestate</description>
+        <from-view-id>*</from-view-id>
+        
+        <navigation-case>
+            <from-outcome>sellRealestate</from-outcome>
+            <to-view-id>/seller/sellRealestate.xhtml</to-view-id>
+        </navigation-case>
+      
     </navigation-rule>
     
     

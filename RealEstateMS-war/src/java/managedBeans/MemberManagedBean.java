@@ -22,11 +22,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
@@ -40,6 +43,12 @@ import javax.validation.Validator;
 @ManagedBean
 @SessionScoped
 public class MemberManagedBean {
+    
+    final private static int BUYER=1;
+    final private static int SELLER=2;
+    final private static int AGENT=3;
+    
+    final private static String MEMBER_PREFIX="member";
 
     @EJB
     private PropertyLocationMasterFacade propertyLocationMasterFacade;
@@ -53,19 +62,38 @@ public class MemberManagedBean {
     MemberDetailFacade memberDetailFacade;
 
     private int memberCategory;
+    private String agentCategory;
     private MemberDetail member;
     private AgentMemberDetail agentMemberDetail;
     private BuyerMemberDetail buyerMemberDetail;
     private PropertyLocationMaster propertyLocation;
+    
+    /**
+     * Creates a new instance of NewJSFManagedBean
+     */
+    public MemberManagedBean() {
+
+    }
 
     @PostConstruct
     public void init() {
         memberCategory = 1;
+        agentCategory="domestic";
         member = new MemberDetail();
         buyerMemberDetail = new BuyerMemberDetail();
         propertyLocation = new PropertyLocationMaster();
         agentMemberDetail = new AgentMemberDetail();
     }
+
+    public String getAgentCategory() {
+        return agentCategory;
+    }
+
+    public void setAgentCategory(String agentCategory) {
+        this.agentCategory = agentCategory;
+    }
+    
+    
 
     public int getMemberCategory() {
         return memberCategory;
@@ -109,26 +137,37 @@ public class MemberManagedBean {
 
     public String encryptPassword(String password) {
 
+       MessageDigest md;
+       StringBuilder sb = new StringBuilder();
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(password.getBytes());
-            return new sun.misc.BASE64Encoder().encode(md.digest());
-        } catch (NoSuchAlgorithmException e) {
-            //_log.error("Failed to encrypt password.", e);
+            md = MessageDigest.getInstance("SHA-256"); md.update(password.getBytes());
+ 
+        byte byteData[] = md.digest();
+ 
+        //convert the byte to hex format method 1
+        
+        for (int i = 0; i < byteData.length; i++) {
+         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
         }
-        return "";
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(MemberManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        
+        return sb.toString();
     }
 
     public String registerMember() {
-        // member.setPassword(encryptPassword(member.getPassword()));
-        member.setBuyerMemberDetail(buyerMemberDetail);
-        String memberid = "member" + (memberDetailFacade.count() + 1);
+        
+        member.setPassword(encryptPassword(member.getPassword()));
+       
+        String memberid = MEMBER_PREFIX + (memberDetailFacade.count() + 1);
         member.setMemberId(memberid);
         member.setMemberCategoryId(memberCategoryMasterFacade.find(String.valueOf(memberCategory)));
-
-        if (memberCategory == 1) {
-            String locationId = String.valueOf(propertyLocationMasterFacade.count() + 1);
-            propertyLocation.setLocationId(locationId);
+        String locationId = String.valueOf(propertyLocationMasterFacade.count() + 1);
+        
+        propertyLocation.setLocationId(locationId);
+        if (memberCategory == BUYER) {
             buyerMemberDetail.setMemberId(memberid);
             buyerMemberDetail.setLocationId(propertyLocation);
             member.setBuyerMemberDetail(buyerMemberDetail);
@@ -136,16 +175,27 @@ public class MemberManagedBean {
            
         }
         
+           if (memberCategory == AGENT) {
+            agentMemberDetail.setMemberId(memberid);
+            agentMemberDetail.setAgentType(agentCategory);
+            agentMemberDetail.setLocationId(propertyLocation);
+            member.setAgentMemberDetail(agentMemberDetail);
+            
+            propertyLocationMasterFacade.create(propertyLocation);
+           
+        }
+      
         memberDetailFacade.create(member);
         return "success";
 
     }
-
-    /**
-     * Creates a new instance of NewJSFManagedBean
-     */
-    public MemberManagedBean() {
-
+    
+    public String signOut(){
+    FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/index.xhtml?faces-redirect=true";
+    
     }
+
+    
 
 }

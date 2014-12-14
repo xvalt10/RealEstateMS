@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../templates/basicTemplate.xhtml">
+
+            
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form prependId="false:">
+                        <h1><h:outputText value="Add Property Category"/></h1>
+                        <h:panelGrid columns="3">
+                            <h:outputLabel value="CategoryName:" for="categoryName" />
+                            <h:inputText id="categoryName" value="#{propertyManagedBean.propertyCategory.categoryName}" title="CategoryName" required="true" requiredMessage="The CategoryName field is required."/>
+                            <h:message for="categoryName"/>
+                            
+                            <h:outputLabel value="CategoryDescription:" for="categoryDescription" />
+                            <h:inputText id="categoryDescription" value="#{propertyManagedBean.propertyCategory.categoryDescription}" title="CategoryDescription" required="true" requiredMessage="The CategoryDescription field is required."/>
+                            <h:message for="categoryDescription"/>
+                            
+                            <h:outputLabel value="BuyerCommission:" for="buyerCommission" />
+                            <h:inputText id="buyerCommission" value="#{propertyManagedBean.propertyCategory.buyerCommission}" title="BuyerCommission" required="true" requiredMessage="The BuyerCommission field is required."/>
+                            <h:message for="buyerCommission"/>
+                            
+                            <h:outputLabel value="SellerCommission:" for="sellerCommission" />
+                            <h:inputText id="sellerCommission" value="#{propertyManagedBean.propertyCategory.sellerCommission}" title="SellerCommission" required="true" requiredMessage="The SellerCommission field is required."/>
+                            <h:message for="sellerCommission"/>
+                            
+                            <h:outputLabel value="AgentCommission:" for="agentCommission" />
+                            <h:inputText id="agentCommission" value="#{propertyManagedBean.propertyCategory.agentCommission}" title="AgentCommission" />
+                            <h:message for="agentCommission" />
+                            
+                            <h:commandButton value="Add Category" action="#{propertyManagedBean.addPropertyCategory()}"/>
+                            
+                        </h:panelGrid>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
