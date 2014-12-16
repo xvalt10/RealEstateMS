@@ -24,6 +24,7 @@ public class AgentMemberDetailFacade extends AbstractFacade<AgentMemberDetail> {
         return em;
     }
 
+    
     public AgentMemberDetailFacade() {
         super(AgentMemberDetail.class);
     }

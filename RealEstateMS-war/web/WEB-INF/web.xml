@@ -13,6 +13,10 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>servlets.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ImageLoader</servlet-name>
+        <servlet-class>servlets.ImageLoader</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
@@ -21,12 +25,15 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImageLoader</servlet-name>
+        <url-pattern>/images/*</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>JDBCRealm</realm-name>
@@ -35,16 +42,13 @@
             <form-error-page>/loginerror.xhtml</form-error-page>
         </form-login-config>
     </login-config>
-    
     <error-page>
         <error-code>403</error-code>
         <location>/faces/unauthorized.xhtml</location>
     </error-page>
-    
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
-    
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Admin pages</web-resource-name>
@@ -54,7 +58,6 @@
             <role-name>role_admin</role-name>
         </auth-constraint>
     </security-constraint>
-    
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Seller pages</web-resource-name>

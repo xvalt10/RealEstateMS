@@ -25,6 +25,10 @@ public class MemberDetailFacade extends AbstractFacade<MemberDetail> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    public MemberDetail getMemberidByUsername(String username){
+    return em.createNamedQuery("MemberDetail.findByUsername",MemberDetail.class).setParameter("username", username).getSingleResult();
+    }
 
     public MemberDetailFacade() {
         super(MemberDetail.class);

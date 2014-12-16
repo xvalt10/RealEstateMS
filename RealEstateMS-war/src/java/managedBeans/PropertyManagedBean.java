@@ -12,20 +12,29 @@ import beans.PropertyLocationMasterFacade;
 import entity.PropertyCategoryMaster;
 import entity.PropertyDetails;
 import entity.PropertyLocationMaster;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  *
  * @author Tomas
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class PropertyManagedBean {
     @EJB
     private PropertyCategoryMasterFacade propertyCategoryFacade;
@@ -35,6 +44,11 @@ public class PropertyManagedBean {
     
     @EJB
     private PropertyLocationMasterFacade propertyLocationFacade;
+    
+    @EJB
+    private MemberDetailFacade memberDetailsFacade;
+    
+    private static final int BUFFER_SIZE=6124;
     
     private PropertyCategoryMaster propertyCategory;
     
@@ -79,20 +93,50 @@ public class PropertyManagedBean {
     
     }
     
-    
     public void addProperty(){
         
+               
         String propertyid=String.valueOf(propertyDetailsFacade.count()+1);
         String locationid=String.valueOf(propertyLocationFacade.count()+1);
+        
         propertyLocation.setLocationId(locationid);
         propertyLocation.setCity(propertyDetails.getCity());
         propertyLocation.setCountry(propertyDetails.getCountry());
         propertyLocation.setState(propertyDetails.getState());
         propertyLocation.setLocality(propertyDetails.getRegion());
+        propertyLocationFacade.create(propertyLocation);
+        
+        propertyDetails.setPropertyId(propertyid);
         propertyDetails.setLocationId(propertyLocation);
+        propertyDetails.setPostedBy(memberDetailsFacade.getMemberidByUsername(getCurrentUserName()));
         propertyDetailsFacade.create(propertyDetails);
         
     }
+    
+    public String getCurrentUserName(){
+        FacesContext context=FacesContext.getCurrentInstance();
+        return context.getExternalContext().getRemoteUser();
+    }
+    
+    public void propertyImageUpload(FileUploadEvent event){
+        InputStream inputStream= null;
+        try {
+            inputStream = event.getFile().getInputstream();
+            propertyDetails.setImage(IOUtils.toByteArray(inputStream));
+            
+        } catch (IOException ex) {
+            Logger.getLogger(PropertyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException ex) {
+                Logger.getLogger(PropertyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    
+    }
+    
+  
     
     public List<PropertyCategoryMaster> getPropertyCategories(){
         return propertyCategoryFacade.findAll();
@@ -102,6 +146,9 @@ public class PropertyManagedBean {
         return propertyLocationFacade.findAll();
     }
 
+     public List<PropertyDetails> getPropertyDetailsList(){
+        return propertyDetailsFacade.findAll();
+    }
     /**
      * Creates a new instance of NewJSFManagedBean
      */

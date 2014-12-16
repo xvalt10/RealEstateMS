@@ -39,7 +39,7 @@ public class PropertyCategoryConverter  implements Converter{
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        return ((PropertyCategoryMaster) value).toString(); //To change body of generated methods, choose Tools | Templates.
+        return value.toString(); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
