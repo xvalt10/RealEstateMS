@@ -9,88 +9,97 @@
 
         <ui:composition template="./templates/basicTemplate.xhtml">
 
-            
+
 
             <ui:define name="content">
                 Welcome <h:outputText value="${request.userPrincipal}"/>
-                
-                
-                    <h:form>
-                        <h1><h:outputText value="List"/></h1>
-                        <h:dataTable value="#{propertyManagedBean.propertyDetailsList}" var="item">
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="PropertyId"/>
-                                </f:facet>
-                                <h:outputText value="#{item.propertyId}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Country"/>
-                                </f:facet>
-                                <h:outputText value="#{item.country}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="State"/>
-                                </f:facet>
-                                <h:outputText value="#{item.state}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="City"/>
-                                </f:facet>
-                                <h:outputText value="#{item.city}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Region"/>
-                                </f:facet>
-                                <h:outputText value="#{item.region}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Area"/>
-                                </f:facet>
-                                <h:outputText value="#{item.area}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Rate"/>
-                                </f:facet>
-                                <h:outputText value="#{item.rate}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="LumpsumCost"/>
-                                </f:facet>
-                                <h:outputText value="#{item.lumpsumCost}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Image"/>
-                                </f:facet>
-                                <h:graphicImage  value="images/#{item.propertyId}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="PropertyDescription"/>
-                                </f:facet>
-                                <h:outputText value="#{item.propertyDescription}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="PropertyTitle"/>
-                                </f:facet>
-                                <h:outputText value="#{item.propertyTitle}"/>
-                            </h:column>
-                            </h:dataTable>
-                    </h:form>
+
+
+                <h:form>
+                    <h:panelGroup layout="block" class="page-header">
+                    <h1><h:outputText value="Recently added realestate"/></h1>
+                    </h:panelGroup>
+                    <h:dataTable value="#{propertyManagedBean.propertyDetailsList}" var="item" class="table">
+                        <tbody>
+                           <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Image"/>
+                            </f:facet>
+                            <h:graphicImage  value="images/#{item.propertyId}" height="50" width="50"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Country"/>
+                            </f:facet>
+                            <h:outputText value="#{item.country}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="State"/>
+                            </f:facet>
+                            <h:outputText value="#{item.state}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="City"/>
+                            </f:facet>
+                            <h:outputText value="#{item.city}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Region"/>
+                            </f:facet>
+                            <h:outputText value="#{item.region}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Area"/>
+                            </f:facet>
+                            <h:outputText value="#{item.area}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Rate"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rate}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="LumpsumCost"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lumpsumCost}"/>
+                        </h:column>
+                    
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="PropertyDescription"/>
+                            </f:facet>
+                            <h:outputText value="#{item.propertyDescription}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="PropertyTitle"/>
+                            </f:facet>
+                            <h:outputText value="#{item.propertyTitle}"/>
+                        </h:column>
+                        </tbody>
+                    </h:dataTable>
+                </h:form>
             </ui:define>
 
-            
+
 
         </ui:composition>
 
-    </body>
+           </body>
+
+
+
+
+
+
+
+
+
+
 </html>

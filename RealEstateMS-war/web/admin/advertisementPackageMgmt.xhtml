@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form>
+                        <h:panelGroup layout="block" class="page-header">
+                        <h1><h:outputText value="Advertisement Package Management"/></h1>
+                        </h:panelGroup>
+                        <h:panelGrid columns="2">
+                            
+                            <h:outputLabel value="BannerDimension:" for="bannerDimension" />
+                            <h:inputText id="bannerDimension" value="#{advertisementManagedBean.advertisementPackage.bannerDimension}" class="form-control" title="BannerDimension" required="true" requiredMessage="The BannerDimension field is required."/>
+                            
+                            <h:outputLabel value="BannerImageSize:" for="bannerImageSize" />
+                            <h:inputText id="bannerImageSize" value="#{advertisementManagedBean.advertisementPackage.bannerImageSize}" class="form-control" title="BannerImageSize" required="true" requiredMessage="The BannerImageSize field is required."/>
+                            <h:outputLabel value="BannerTextSize:" for="bannerTextSize" />
+                            <h:inputText id="bannerTextSize" value="#{advertisementManagedBean.advertisementPackage.bannerTextSize}" class="form-control" title="BannerTextSize" required="true" requiredMessage="The BannerTextSize field is required."/>
+                            <h:outputLabel value="CostPerDay:" for="costPerDay" />
+                            <h:inputText id="costPerDay" value="#{advertisementManagedBean.advertisementPackage.costPerDay}" title="CostPerDay" class="form-control" required="true" requiredMessage="The CostPerDay field is required."/>
+                            <h:outputLabel value="WeekDiscount:" for="weekDiscount" />
+                            <h:inputText id="weekDiscount" value="#{advertisementManagedBean.advertisementPackage.weekDiscount}" title="WeekDiscount" class="form-control" required="true" requiredMessage="The WeekDiscount field is required."/>
+                            <h:outputLabel value="MonthDiscount:" for="monthDiscount" />
+                            <h:inputText id="monthDiscount" value="#{advertisementManagedBean.advertisementPackage.monthDiscount}" title="MonthDiscount" class="form-control" required="true" requiredMessage="The MonthDiscount field is required."/>
+                            <h:outputLabel value="YearDiscount:" for="yearDiscount" />
+                            <h:inputText id="yearDiscount" value="#{advertisementManagedBean.advertisementPackage.yearDiscount}" title="YearDiscount" class="form-control" required="true" requiredMessage="The YearDiscount field is required."/>
+
+                            <h:commandButton value="Add new advertisement package" action="#{advertisementManagedBean.addPackage()}" class="btn btn-primary"/>
+                        </h:panelGrid>
+                    </h:form>
+                    <br></br>
+                    <br></br>
+
+
+                    <h:form>
+                        <h1><h:outputText value="Available advertisement packages:"/></h1>
+                        <h:dataTable value="#{advertisementManagedBean.advertisementPackageList}" var="item" class="table">
+                            <tbody>
+                           
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Dimension"/>
+                                </f:facet>
+                                <h:outputText value="#{item.bannerDimension}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Image Size"/>
+                                </f:facet>
+                                <h:outputText value="#{item.bannerImageSize}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Text Size"/>
+                                </f:facet>
+                                <h:outputText value="#{item.bannerTextSize}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Daily cost:"/>
+                                </f:facet>
+                                <h:outputText value="#{item.costPerDay}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Week discount"/>
+                                </f:facet>
+                                <h:outputText value="#{item.weekDiscount}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Month discount"/>
+                                </f:facet>
+                                <h:outputText value="#{item.monthDiscount}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Year discount"/>
+                                </f:facet>
+                                <h:outputText value="#{item.yearDiscount}"/>
+                            </h:column>
+                            <h:column>
+                                
+                                <h:commandLink value="Edit"/>
+                            </h:column>
+                           <h:column>
+                                
+                                <h:commandLink value="Remove"/>
+                            </h:column>
+                            </tbody>
+                        </h:dataTable>
+                    </h:form>
+
+
+
+                   
+                </f:view>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>
