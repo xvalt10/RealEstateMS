@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://java.sun.com/jsf/passthrough"
+      >
+
+    <body>
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+
+                <h:panelGroup layout="block" class="page-header">
+                    <h1><h:outputText value="#{propertyManagedBean.propertyDetails.categoryId.categoryName},#{propertyManagedBean.propertyDetails.locationId.city},#{propertyManagedBean.propertyDetails.propertyTitle}"/></h1>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" class="row" style="margin-right:0px;margin-left:0px;">
+                    <h:panelGroup layout="block" class="col-sm-9">
+                        <h:panelGroup layout="block" class="row" style="margin-bottom: 20px">
+                            <h:form>
+                                
+                            <h:commandLink  class="btn btn-default" style="margin-right:5px" >
+                                <h:outputText class="glyphicon glyphicon-print" /> Print
+                            </h:commandLink>
+                               
+                          <h:commandLink  class="btn btn-default" style="margin-right:5px" >
+                                <h:outputText class="glyphicon glyphicon-envelope" /> Send by email
+                            </h:commandLink>
+                                
+                             <h:commandLink  class="btn btn-default" style="margin-right:5px" >
+                                <h:outputText class="glyphicon glyphicon-star" /> Add to favorites
+                            </h:commandLink>
+                            
+                            
+                            </h:form>
+                            
+                        </h:panelGroup>
+                        
+                        <h:panelGroup layout="block" class="row">
+                            <h:panelGroup layout="block" class="col-sm-6"> 
+                                <h:graphicImage  value="images/#{propertyManagedBean.propertyDetails.propertyId}" style="max-width: 100%"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup layout="block" class="col-sm-6" style="font-size: 14px">  
+                                <h:panelGrid columns="2">
+                                    <h:column>
+                                        <h:outputText value="Locality:" />
+                                        
+                                    </h:column>
+                                   <h:outputText value="#{propertyManagedBean.propertyDetails.locationId.locality}" />
+
+                                    <h:column>
+                                        <h:outputText value="Area:"/>
+                                    </h:column>
+                                    <h:outputText value="#{propertyManagedBean.propertyDetails.area} m&lt;sup&gt;2 &lt;/sup&gt;" escape="false"/>
+                                     <h:column>
+                                        <h:outputText value="Price:"/>
+                                    </h:column>
+                                    <h:outputText value="#{propertyManagedBean.propertyDetails.lumpsumCost.setScale(2)}" escape="false"/>
+                                </h:panelGrid>
+                            </h:panelGroup>
+
+                        </h:panelGroup>
+                        
+                        <h:panelGroup layout="block" class="row">
+                            <h3>Description of realestate</h3>
+                        </h:panelGroup>  
+                        
+                         <h:panelGroup layout="block" class="row" style="font-size: 14px">
+                           <h:outputText value="#{propertyManagedBean.propertyDetails.propertyDescription}"/>
+                        </h:panelGroup> 
+                            
+                        
+
+                    </h:panelGroup>
+                   
+                        <h:panelGroup layout="block" class="col-sm-3" style="border:1px solid #eeeeee ;border-radius: 4px;padding-top:10px;padding-bottom:10px"> 
+                        
+                        <h:panelGrid columns="1">
+                            <h:panelGroup layout="block">
+                            <h:outputText class="glyphicon glyphicon-user" style="margin-right:5px"/><h:outputText value="#{propertyManagedBean.propertyDetails.postedBy.name}" />
+                            </h:panelGroup>
+                           <h:panelGroup layout="block">
+                            <h:outputText class="glyphicon glyphicon-earphone" style="margin-right:5px"/><h:outputText value="#{propertyManagedBean.propertyDetails.postedBy.mobileNumber}" />
+                           </h:panelGroup>
+                            <br></br>
+                            <h:outputText value="Contact seller/agent" style="margin-bottom: 30px"/> 
+                            <br></br>
+                        </h:panelGrid>
+                            
+                        <h:form class="form">
+                                
+                               <h:outputText value="Enter your name"/>
+                               <h:inputText class="form-control" pt:placeholder="Enter your name" value="#{mailManagedBean.name}"/>
+                                <h:outputText value="Enter your telephone no."/>
+                                <h:inputText class="form-control" pt:placeholder="Enter your telephone no." value="#{mailManagedBean.telephoneNumber}"/>
+                                <h:outputText value="Enter your email"/>
+                                <h:inputText class="form-control" pt:placeholder="Enter your email" value="#{mailManagedBean.email}"/>
+                                <h:outputText value="Text of email"/>
+                                <h:inputTextarea class="form-control" rows="10" value="#{mailManagedBean.messageBody}"/>
+                                <br></br>
+                                <h:commandButton class="btn btn-default" value="Send to agent" action="#{mailManagedBean.contactAgent(propertyManagedBean.propertyDetails.postedBy.emaiIId)}"/>
+                                
+                            </h:form>
+                            
+                       
+                    
+                    </h:panelGroup>
+
+                </h:panelGroup>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

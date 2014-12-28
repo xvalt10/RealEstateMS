@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:panelGroup layout="block" class="page-header">
+                    <h1><h:outputText value="Update member Profile"/></h1>
+                    </h:panelGroup>
+                
+                      <h:form id="updateForm">
+                          
+                            <h:panelGrid columns="3">
+
+                                <h:outputLabel value="Member category:" for="memberCategoryId" />
+                                <h:outputText id="memberCategoryId" value="#{memberManagedBean.member.memberCategoryId.memberCategoryName}" class="form-control"/>
+                                <h:message for="memberCategoryId" />
+
+                                <h:outputLabel/>
+                                <h:outputLabel/>
+                                <h:outputLabel/>
+
+                                <h:outputLabel value="Username:" for="username" />
+                                <h:inputText id="username" value="#{memberManagedBean.member.username}" title="Username" class="form-control"/>
+                                <h:message for="username" />
+
+                                <h:outputLabel value="Password:" for="password" />
+                                <h:inputSecret redisplay="true" id="password" value="#{memberManagedBean.member.password}" class="form-control" title="Password" required="true" requiredMessage="The Password field is required."/>
+                                <h:message for="password" />
+
+                                <h:outputLabel/>
+                                <h:outputLabel/>
+                                <h:outputLabel/>
+
+                                <h:outputLabel value="Name:" for="name" />
+                                <h:inputText id="name" value="#{memberManagedBean.member.name}" title="Name" class="form-control"/>
+                                <h:message for="name" />
+
+                                <h:outputLabel value="Address:" for="address" />
+                                <h:inputText id="address" value="#{memberManagedBean.member.address}" title="Address" class="form-control"/>
+                                <h:message for="address" />
+
+                                <h:outputLabel value="Pincode:" for="pincode" />
+                                <h:inputText id="pincode" value="#{memberManagedBean.member.pincode}" title="Pincode" class="form-control"/>
+                                <h:message for="pincode" />
+
+                                <h:outputLabel value="Phone number:" for="phoneNnumber" />
+                                <h:inputText id="phoneNnumber" value="#{memberManagedBean.member.phoneNnumber}" title="PhoneNnumber" class="form-control"/>
+                                <h:message for="phoneNnumber" />
+
+                                <h:outputLabel value="Mobile number:" for="mobileNumber" />
+                                <h:inputText id="mobileNumber" value="#{memberManagedBean.member.mobileNumber}" title="MobileNumber" class="form-control"/>
+                                <h:message for="mobileNumber" />
+
+                                <h:outputLabel value="EmaiIId:" for="emaiIId" />
+                                <h:inputText id="emaiIId" value="#{memberManagedBean.member.emaiIId}" title="EmaiIId" class="form-control"/>
+                                <h:message for="emaiIId" />
+
+                                <h:outputLabel value="Newsletter subscription:" for="newsletterSubscription" />
+                                <h:inputText id="newsletterSubscription" value="#{memberManagedBean.member.newsletterSubscription}" title="NewsletterSubscription" class="form-control"/>
+                                <h:message for="newsletterSubscription" />
+
+                               
+
+                                <c:if test="#{memberManagedBean.memberCategory == 1 ||memberManagedBean.memberCategory == 3}" id="if" rendered="true">
+                                    <h:outputLabel/>
+                                    <h:outputLabel/>
+                                    <h:outputLabel/>
+                                </c:if>
+
+                                <h:outputLabel value="Country:" for="country" rendered="#{memberManagedBean.memberCategory ==  1 || memberManagedBean.memberCategory==3}"/>
+                                <h:inputText id="country" value="#{memberManagedBean.propertyLocation.country}" title="Country" required="true" requiredMessage="The Country field is required." rendered="#{memberManagedBean.memberCategory == 1 || memberManagedBean.memberCategory==3}" class="form-control"/>
+                                <h:message for="country" />
+
+                                <h:outputLabel value="State:" for="state" rendered="#{memberManagedBean.memberCategory == 1 || memberManagedBean.memberCategory==3}"/>
+                                <h:inputText id="state" value="#{memberManagedBean.propertyLocation.state}" title="State" required="true" requiredMessage="The State field is required." rendered="#{memberManagedBean.memberCategory == 1 || memberManagedBean.memberCategory==3}" class="form-control"/>
+                                <h:message for="state" />
+
+                                <h:outputLabel value="City:" for="city" rendered="#{memberManagedBean.memberCategory == 1 || memberManagedBean.memberCategory==3}"/>
+                                <h:inputText id="city" value="#{memberManagedBean.propertyLocation.city}" title="City" required="true" requiredMessage="The City field is required." rendered="#{memberManagedBean.memberCategory == 1 || memberManagedBean.memberCategory==3}" class="form-control"/>
+                                <h:message for="city" />
+
+                                <h:outputLabel value="Locality:" for="locality" rendered="#{memberManagedBean.memberCategory == 1 || memberManagedBean.memberCategory==3}"/>
+                                <h:inputText id="locality" value="#{memberManagedBean.propertyLocation.locality}" title="Locality" rendered="#{memberManagedBean.memberCategory == 1 || memberManagedBean.memberCategory==3}" class="form-control"/>
+                                <h:message for="locality" />
+
+                                <h:outputLabel value="Agent type:" for="agentType" rendered="#{memberManagedBean.memberCategory == 3 }"/>
+                                <h:selectOneMenu id="agentType" value="#{memberManagedBean.member.agentMemberDetails.agentCategory}" title="AgentType" required="true" requiredMessage="The Agent type field is required." rendered="#{memberManagedBean.memberCategory == 3}" class="form-control">
+                                    <f:selectItem itemValue="domestic" itemLabel="Domestic" />
+                                    <f:selectItem itemValue="international" itemLabel="International"/>
+                                    
+                                </h:selectOneMenu>
+                                <h:message for="agentType" />
+
+                                <c:if test="#{memberManagedBean.memberCategory == 3}" id="if" rendered="true">
+                                    <h:outputLabel/>
+                                </c:if>
+
+                                <c:if test="#{memberManagedBean.memberCategory == 1}" id="if" rendered="true">
+                                    <h:outputLabel/>
+                                    <h:outputLabel/>
+                                </c:if>
+
+                                <h:outputLabel value="Property Area:" for="propertyArea" rendered="#{memberManagedBean.memberCategory == 1}"/>
+                                <h:inputText id="propertyArea" value="#{memberManagedBean.member.buyerMemberDetail.propertyArea}" title="PropertyArea" required="true" requiredMessage="The PropertyArea field is required." rendered="#{memberManagedBean.memberCategory  == 1}" class="form-control"/>
+                                <h:message for="newsletterSubscription" />
+
+                                <h:outputLabel value="Property Budget:" for="propertyBudget" rendered="#{memberManagedBean.memberCategory  == 1}"/>
+                                <h:inputText id="propertyBudget" value="#{memberManagedBean.member.buyerMemberDetail.propertyBudget}" title="PropertyBudget" required="true" requiredMessage="The PropertyBudget field is required." rendered="#{memberManagedBean.memberCategory  == 1}" class="form-control"/>
+                                <h:message for="propertyBudget" />
+
+                                <c:if test="#{memberManagedBean.memberCategory == 1}" id="if" rendered="true">
+                                    <h:outputLabel/>
+                                    <h:outputLabel/>
+                                    <h:outputLabel/>
+                                </c:if>
+
+
+
+                                <h:commandButton value="Update" class="btn btn-default" action="#{memberManagedBean.updateMemberDetails(facesContext.externalContext.userPrincipal)}"/>
+
+                            </h:panelGrid>
+
+                        </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+                    <h:form>
+                    <h:panelGroup layout="block" class="page-header">
+                        <h1><h:outputText value="Search results"/></h1>
+                    </h:panelGroup>
+
+                    
+                    <c:forEach end="#{searchingManagedBean.loadPropertySearchResults().size()}" var="row" step="3" varStatus="iterRow">
+                        <h:panelGroup layout="block" class="row" style="margin-bottom: 20px">
+                            <c:forEach items="#{searchingManagedBean.loadPropertySearchResults()}" var="property" varStatus="iterInner" begin="#{iterRow.index}" end="#{searchingManagedBean.loadPropertySearchResults().size()-iterRow.index>3?iterRow.index+2:searchingManagedBean.loadPropertySearchResults().size()}">
+                                <h:panelGroup layout="block" class="col-sm-4" > 
+                                    <h:panelGrid columns="1">
+                                       <h:graphicImage  value="images/#{property.propertyId}" height="100" width="100"/>
+                                        <h:outputText value="#{propertyManagedBean.findPropertyCategoryName(property.categoryId.categoryId)}"/>
+                                        <h:outputText value="#{property.lumpsumCost.setScale(2)} € "/>
+                                        <h:commandButton action="#{propertyManagedBean.viewPropertyDetails(property.propertyId)}" value="More info..."/> 
+                                           
+                                            
+                                        
+                                    </h:panelGrid>
+                                </h:panelGroup>
+                            </c:forEach>
+                        </h:panelGroup>
+                    </c:forEach>
+                    </h:form>
+
+
+
+
+
+
+<!--                    <ui:repeat value="#{searchingManagedBean.loadPropertySearchResults()}" var="property"  varStatus="iterRow" step="3" offset="0" >                    
+                        <h:panelGroup layout="block" class="row" >
+                            <ui:repeat value="#{searchingManagedBean.loadPropertySearchResults()}" var="property"  varStatus="iter" offset="#{iterRow.index}" size="#{searchingManagedBean.loadPropertySearchResults().size()}">
+
+
+                                <h:panelGroup layout="block" class="col-sm-4" > 
+                                    <h:panelGrid columns="1">
+                                        <h:graphicImage  value="images/#{property.propertyId}" height="100" width="100"/>
+                                        
+                                        <h:outputText value="#{property.lumpsumCost.setScale(0, BigDecimal.ROUND_DOWN)} € "/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+
+
+                            </ui:repeat>  
+                        </h:panelGroup >
+                    </ui:repeat>-->
+
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

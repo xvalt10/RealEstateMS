@@ -28,4 +28,10 @@ public class AdvertisementPackageFacade extends AbstractFacade<AdvertisementPack
         super(AdvertisementPackage.class);
     }
     
+    public String getNewId(){
+        int maxid=(Integer) em.createNativeQuery("select MAX(CAST(packageId as INT)) from AdvertisementPackage").getSingleResult();
+        return String.valueOf(maxid+1);  
+    }
+    
+   
 }

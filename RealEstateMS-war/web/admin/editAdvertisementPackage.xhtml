@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+               <h:form>
+                        <h:panelGroup layout="block" class="page-header">
+                        <h1><h:outputText value="Edit advertisement package"/></h1>
+                        </h:panelGroup>
+                        <h:panelGrid columns="2">
+                            
+                            <h:outputLabel value="BannerDimension:" for="bannerDimension" />
+                            <h:inputText id="bannerDimension" value="#{advertisementManagedBean.advertisementPackage.bannerDimension}" class="form-control" title="BannerDimension" required="true" requiredMessage="The BannerDimension field is required."/>
+                            
+                            <h:outputLabel value="BannerImageSize:" for="bannerImageSize" />
+                            <h:inputText id="bannerImageSize" value="#{advertisementManagedBean.advertisementPackage.bannerImageSize}" class="form-control" title="BannerImageSize" required="true" requiredMessage="The BannerImageSize field is required."/>
+                            <h:outputLabel value="BannerTextSize:" for="bannerTextSize" />
+                            <h:inputText id="bannerTextSize" value="#{advertisementManagedBean.advertisementPackage.bannerTextSize}" class="form-control" title="BannerTextSize" required="true" requiredMessage="The BannerTextSize field is required."/>
+                            <h:outputLabel value="CostPerDay:" for="costPerDay" />
+                            <h:inputText id="costPerDay" value="#{advertisementManagedBean.advertisementPackage.costPerDay}" title="CostPerDay" class="form-control" required="true" requiredMessage="The CostPerDay field is required."/>
+                            <h:outputLabel value="WeekDiscount:" for="weekDiscount" />
+                            <h:inputText id="weekDiscount" value="#{advertisementManagedBean.advertisementPackage.weekDiscount}" title="WeekDiscount" class="form-control" required="true" requiredMessage="The WeekDiscount field is required."/>
+                            <h:outputLabel value="MonthDiscount:" for="monthDiscount" />
+                            <h:inputText id="monthDiscount" value="#{advertisementManagedBean.advertisementPackage.monthDiscount}" title="MonthDiscount" class="form-control" required="true" requiredMessage="The MonthDiscount field is required."/>
+                            <h:outputLabel value="YearDiscount:" for="yearDiscount" />
+                            <h:inputText id="yearDiscount" value="#{advertisementManagedBean.advertisementPackage.yearDiscount}" title="YearDiscount" class="form-control" required="true" requiredMessage="The YearDiscount field is required."/>
+                            <h:commandButton value="Update advertisement package" action="#{advertisementManagedBean.updatePackage()}" class="btn btn-primary"/>
+                        </h:panelGrid>
+                    </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

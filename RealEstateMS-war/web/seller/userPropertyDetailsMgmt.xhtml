@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+               <h:panelGroup layout="block" class="page-header">
+                        <h1><h:outputText value="Update property details"/></h1>
+                        </h:panelGroup>
+                
+                <f:view>
+                    
+                   
+
+
+                    <h:form>
+                        
+                        <h:dataTable value="#{propertyManagedBean.loadPropertyByMember(facesContext.externalContext.userPrincipal)}" var="item" class="table">
+                           
+                        <tbody>
+                           <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Image"/>
+                            </f:facet>
+                            <h:graphicImage  value="/images/#{item.propertyId}" height="50" width="50"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Country"/>
+                            </f:facet>
+                            <h:outputText value="#{item.country}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="State"/>
+                            </f:facet>
+                            <h:outputText value="#{item.state}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="City"/>
+                            </f:facet>
+                            <h:outputText value="#{item.city}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Region"/>
+                            </f:facet>
+                            <h:outputText value="#{item.region}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Area"/>
+                            </f:facet>
+                            <h:outputText value="#{item.area}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Rate"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rate}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="LumpsumCost"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lumpsumCost}"/>
+                        </h:column>
+                    
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="PropertyDescription"/>
+                            </f:facet>
+                            <h:outputText value="#{item.propertyDescription}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="PropertyTitle"/>
+                            </f:facet>
+                            <h:outputText value="#{item.propertyTitle}"/>
+                        </h:column>
+                            <h:column>
+                           
+                                <h:commandButton value="Edit" action="#{propertyManagedBean.loadProperty(item.propertyId)}"/>
+                                   
+                        </h:column>
+                        </tbody>
+                    </h:dataTable>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

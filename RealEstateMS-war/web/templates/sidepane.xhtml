@@ -7,24 +7,22 @@
     <f:view>
         
           <ul class="nav nav-pills nav-stacked">
-            
+              <li style="text-align:center;border-bottom: 1px solid #dddddd"><h3><span class="glyphicon glyphicon-list"/> Main Menu</h3></li>
             <li><h:link value="Realestate Categories" outcome="propertyCategories" /></li>
             <li><h:link value="Advertisement Packages" outcome="advertisementPackages" /></li>
+            <li><h:link value="Advertisement Approval" outcome="advertisementApproval" /></li>
             <li><h:link value="Sell Realestate" outcome="sellRealestate" /></li>
+            <li><h:link value="Subscribe Advertisement Package" outcome="subscribeAdvertisementPackage" /></li>
             <li><h:link value="View Realestate" outcome="viewRealestate" /></li>
-            <li><a href="#">Export</a></li>
+            <li><h:link value="Update profile" outcome="updateProfile" onclick="#{memberManagedBean.loadMemberDetails(facesContext.externalContext.userPrincipal)}" rendered="#{facesContext.externalContext.userPrincipal!=null}"/></li>
+            <li><h:link value="Update property details" outcome="updatePropertyDetails"  rendered="#{facesContext.externalContext.userPrincipal!=null}"/></li>
+           
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href=""></a></li>
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-            <li><a href="">More navigation</a></li>
+          
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
+           
           </ul>
         
         

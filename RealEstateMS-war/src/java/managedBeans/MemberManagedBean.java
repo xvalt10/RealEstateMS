@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -32,6 +33,13 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import javax.inject.Inject;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.naming.NamingException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -44,9 +52,13 @@ import javax.validation.Validator;
 @SessionScoped
 public class MemberManagedBean {
     
+      
+    
+    
     final private static int BUYER=1;
     final private static int SELLER=2;
     final private static int AGENT=3;
+    final private static int ADMIN=4;
     
     final private static String MEMBER_PREFIX="member";
 
@@ -67,6 +79,7 @@ public class MemberManagedBean {
     private AgentMemberDetail agentMemberDetail;
     private BuyerMemberDetail buyerMemberDetail;
     private PropertyLocationMaster propertyLocation;
+    
     
     /**
      * Creates a new instance of NewJSFManagedBean
@@ -156,6 +169,50 @@ public class MemberManagedBean {
         
         return sb.toString();
     }
+    
+    public void loadMemberDetails(String username){
+    member=memberDetailFacade.getMemberidByUsername(username);
+    memberCategory=Integer.parseInt(member.getMemberCategoryId().getMemberCategoryId());
+      if (memberCategory == BUYER ) {
+    propertyLocation=propertyLocationMasterFacade.find(member.getBuyerMemberDetail().getLocationId().getLocationId());
+    
+      }
+      else if (memberCategory == AGENT){
+          propertyLocation=propertyLocationMasterFacade.find(member.getAgentMemberDetail().getLocationId().getLocationId());
+      }
+      
+      
+      
+    
+    }
+    
+    public String updateMemberDetails(String username){
+        member.setMemberId(memberDetailFacade.getMemberidByUsername(username).getMemberId());
+        member.setPassword(encryptPassword(member.getPassword()));
+        member.setMemberCategoryId(memberCategoryMasterFacade.find(String.valueOf(memberCategory)));
+        
+        if (memberCategory == BUYER || memberCategory == AGENT){
+        propertyLocation.setLocationId(memberDetailFacade.getMemberidByUsername(username).getBuyerMemberDetail().getLocationId().getLocationId());
+        }
+        if (memberCategory == BUYER) {
+            buyerMemberDetail.setMemberId(memberDetailFacade.getMemberidByUsername(username).getMemberId());
+            buyerMemberDetail.setLocationId(propertyLocation);
+            member.setBuyerMemberDetail(buyerMemberDetail);
+           propertyLocationMasterFacade.edit(propertyLocation);     
+        }
+        
+           if (memberCategory == AGENT) {
+            agentMemberDetail.setMemberId(memberDetailFacade.getMemberidByUsername(username).getMemberId());
+            agentMemberDetail.setAgentType(agentCategory);
+            agentMemberDetail.setLocationId(propertyLocation);
+            member.setAgentMemberDetail(agentMemberDetail);
+             propertyLocationMasterFacade.edit(propertyLocation);     
+        }
+      
+        memberDetailFacade.edit(member);
+        return "success";
+    
+    }
 
     public String registerMember() {
         
@@ -196,6 +253,7 @@ public class MemberManagedBean {
     
     }
 
+  
     
 
 }

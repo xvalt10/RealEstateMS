@@ -28,4 +28,9 @@ public class PropertyLocationMasterFacade extends AbstractFacade<PropertyLocatio
         super(PropertyLocationMaster.class);
     }
     
+    public String getNewId(){
+        int maxid=(Integer) em.createNativeQuery("select MAX(CAST(locationId as INT)) from PropertyLocationMaster").getSingleResult();
+        return String.valueOf(maxid+1);  
+    }
+    
 }

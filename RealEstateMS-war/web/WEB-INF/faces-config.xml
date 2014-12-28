@@ -18,6 +18,31 @@
             <from-outcome>registration</from-outcome>
             <to-view-id>/registration.xhtml</to-view-id>
         </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>advertisementApproval</from-outcome>
+            <to-view-id>/admin/advertisementApproval.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>subscribeAdvertisementPackage</from-outcome>
+            <to-view-id>/seller/subscribeAdPackage.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>viewRealestate</from-outcome>
+            <to-view-id>/viewRealestate.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>updateProfile</from-outcome>
+            <to-view-id>/updateProfile.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>editAdPackage</from-outcome>
+            <to-view-id>/admin/editAdvertisementPackage.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>updatePropertyDetails</from-outcome>
+            <to-view-id>/seller/userPropertyDetailsMgmt.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     
     <navigation-rule>
@@ -58,4 +83,18 @@
             <var>bundle</var>
         </resource-bundle>
     </application>
+    <navigation-rule>
+        <from-view-id>/admin/advertisementPackageMgmt.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>removePackage</from-outcome>
+            <to-view-id>/admin/removeAdvertisementPackage.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/viewSearchResults.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>propertyDetails</from-outcome>
+            <to-view-id>/propertyDetails.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

@@ -17,14 +17,14 @@
                     <h:form id="login" onsubmit="document.getElementById('login').action = 'j_security_check'" prependId="false">
                         <h:panelGrid columns="3">
                             <h:outputLabel value="Username:" for="j_username" />
-                            <h:inputText  title="Username" id="j_username" />
+                            <h:inputText  title="Username" id="j_username" class="form-control"/>
                             <h:message for="username" />
 
                             <h:outputLabel value="Password:" for="j_password" />
-                            <h:inputSecret   title="Password" required="true" requiredMessage="The Password field is required." id="j_password"/>
+                            <h:inputSecret   title="Password" required="true" requiredMessage="The Password field is required." id="j_password" class="form-control"/>
                             <h:message for="password" />
 
-                            <h:commandButton value="Login" />
+                            <h:commandButton class="btn btn-default" value="Login"/>
 
 
 

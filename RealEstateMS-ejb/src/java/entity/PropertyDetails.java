@@ -39,9 +39,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PropertyDetails.findByRegion", query = "SELECT p FROM PropertyDetails p WHERE p.region = :region"),
     @NamedQuery(name = "PropertyDetails.findByArea", query = "SELECT p FROM PropertyDetails p WHERE p.area = :area"),
     @NamedQuery(name = "PropertyDetails.findByRate", query = "SELECT p FROM PropertyDetails p WHERE p.rate = :rate"),
+    @NamedQuery(name = "PropertyDetails.findByUser", query = "SELECT p FROM PropertyDetails p WHERE p.postedBy = :postedBy"),
     @NamedQuery(name = "PropertyDetails.findByLumpsumCost", query = "SELECT p FROM PropertyDetails p WHERE p.lumpsumCost = :lumpsumCost"),
     @NamedQuery(name = "PropertyDetails.findByPropertyDescription", query = "SELECT p FROM PropertyDetails p WHERE p.propertyDescription = :propertyDescription"),
-    @NamedQuery(name = "PropertyDetails.findByPropertyTitle", query = "SELECT p FROM PropertyDetails p WHERE p.propertyTitle = :propertyTitle")})
+    @NamedQuery(name = "PropertyDetails.findByPropertyTitle", query = "SELECT p FROM PropertyDetails p WHERE p.propertyTitle = :propertyTitle"),
+    @NamedQuery(name = "PropertyDetails.findMaxPrice", query = "SELECT MAX(p.lumpsumCost) FROM PropertyDetails p"),
+    @NamedQuery(name = "PropertyDetails.findMinPrice", query = "SELECT MIN(p.lumpsumCost) FROM PropertyDetails p"),
+    @NamedQuery(name = "PropertyDetails.findMaxArea", query = "SELECT MAX(p.area) FROM PropertyDetails p"),
+    @NamedQuery(name = "PropertyDetails.findMinArea", query = "SELECT MIN(p.area) FROM PropertyDetails p")
+})
 public class PropertyDetails implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

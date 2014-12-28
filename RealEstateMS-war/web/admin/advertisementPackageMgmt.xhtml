@@ -91,11 +91,11 @@
                             </h:column>
                             <h:column>
                                 
-                                <h:commandLink value="Edit"/>
+                                <h:commandButton value="Edit" action="#{advertisementManagedBean.loadPackage(item.packageId)}"/>
                             </h:column>
                            <h:column>
                                 
-                                <h:commandLink value="Remove"/>
+                               <h:commandButton value="Remove"  action="#{advertisementManagedBean.removePackage(item.packageId)}"/>
                             </h:column>
                             </tbody>
                         </h:dataTable>

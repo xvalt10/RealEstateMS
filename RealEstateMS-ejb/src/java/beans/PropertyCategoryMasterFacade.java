@@ -25,6 +25,11 @@ public class PropertyCategoryMasterFacade extends AbstractFacade<PropertyCategor
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    public String getCategoryNameByCategoryId(String categoryId){
+   PropertyCategoryMaster category= (PropertyCategoryMaster) em.createNamedQuery("PropertyCategoryMaster.findByCategoryId").setParameter("categoryId", categoryId).getSingleResult();
+   return category.getCategoryName();
+    }
 
     public PropertyCategoryMasterFacade() {
         super(PropertyCategoryMaster.class);
