@@ -14,13 +14,13 @@
                     <h:panelGroup layout="block" class="page-header">
                     <h1><h:outputText value="Advertisement Approval"/></h1>
                     </h:panelGroup>
-                    <h:dataTable value="#{propertyManagedBean.propertyDetailsList}" var="item" class="table">
+                      <h:dataTable value="#{propertyManagedBean.allPropertyDetailsList}" var="item" class="table">
                         <tbody>
                            <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Image"/>
                             </f:facet>
-                            <h:graphicImage  value="images/#{item.propertyId}" height="50" width="50"/>
+                            <h:graphicImage  value="/images/#{item.propertyId}" height="50" width="50"/>
                         </h:column>
                             <h:column>
                             <f:facet name="header">
@@ -48,17 +48,12 @@
                             <h:outputText value="#{item.lumpsumCost}"/>
                         </h:column>
                     
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="PropertyDescription"/>
-                            </f:facet>
-                            <h:outputText value="#{item.propertyDescription}"/>
-                        </h:column>
+                        
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="PropertyTitle"/>
                             </f:facet>
-                            <h:outputText value="#{item.propertyTitle}"/>
+                            <h:commandLink action="#{propertyManagedBean.viewPropertyDetails(item.propertyId)}" value="#{item.propertyTitle}"  />
                         </h:column>
                              <h:column>
                             <f:facet name="header">

@@ -43,6 +43,14 @@
             <from-outcome>updatePropertyDetails</from-outcome>
             <to-view-id>/seller/userPropertyDetailsMgmt.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>updateSearchCriteria</from-outcome>
+            <to-view-id>/buyer/updatePropertySearchCriteria.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>reports</from-outcome>
+            <to-view-id>/admin/reports.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     
     <navigation-rule>

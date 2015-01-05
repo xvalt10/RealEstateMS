@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./../templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                   <h:panelGroup layout="block" class="page-header">
+                    <h1><h:outputText value="Update property search criteria"/></h1>
+                    </h:panelGroup>
+                <h:form>
+                    <h:panelGrid columns="3">
+                         <h:outputLabel value="Country:" for="country" rendered="#{memberManagedBean.memberCategory ==  1 || memberManagedBean.memberCategory==3}"/>
+                                <h:inputText id="country" value="#{memberManagedBean.propertyLocation.country}" title="Country" required="true" requiredMessage="The Country field is required." rendered="#{memberManagedBean.memberCategory == 1 || memberManagedBean.memberCategory==3}" class="form-control"/>
+                                <h:message for="country" />
+
+                                <h:outputLabel value="State:" for="state" rendered="#{memberManagedBean.memberCategory == 1 || memberManagedBean.memberCategory==3}"/>
+                                <h:inputText id="state" value="#{memberManagedBean.propertyLocation.state}" title="State" required="true" requiredMessage="The State field is required." rendered="#{memberManagedBean.memberCategory == 1 || memberManagedBean.memberCategory==3}" class="form-control"/>
+                                <h:message for="state" />
+
+                                <h:outputLabel value="City:" for="city" rendered="#{memberManagedBean.memberCategory == 1 || memberManagedBean.memberCategory==3}"/>
+                                <h:inputText id="city" value="#{memberManagedBean.propertyLocation.city}" title="City" required="true" requiredMessage="The City field is required." rendered="#{memberManagedBean.memberCategory == 1 || memberManagedBean.memberCategory==3}" class="form-control"/>
+                                <h:message for="city" />
+
+                                <h:outputLabel value="Locality:" for="locality" rendered="#{memberManagedBean.memberCategory == 1 || memberManagedBean.memberCategory==3}"/>
+                                <h:inputText id="locality" value="#{memberManagedBean.propertyLocation.locality}" title="Locality" rendered="#{memberManagedBean.memberCategory == 1 || memberManagedBean.memberCategory==3}" class="form-control"/>
+                                <h:message for="locality" />
+                                
+                                 <c:if test="#{memberManagedBean.memberCategory == 1}" id="if" rendered="true">
+                                    <h:outputLabel/>
+                                    <h:outputLabel/>
+                                    <h:outputLabel/>
+                                </c:if>
+
+                                <h:outputLabel value="Property Area:" for="propertyArea" rendered="#{memberManagedBean.memberCategory == 1}"/>
+                                <h:inputText id="propertyArea" value="#{memberManagedBean.member.buyerMemberDetail.propertyArea}" title="PropertyArea" required="true" requiredMessage="The PropertyArea field is required." rendered="#{memberManagedBean.memberCategory  == 1}" class="form-control"/>
+                                <h:message for="newsletterSubscription" />
+
+                                <h:outputLabel value="Property Budget:" for="propertyBudget" rendered="#{memberManagedBean.memberCategory  == 1}"/>
+                                <h:inputText id="propertyBudget" value="#{memberManagedBean.member.buyerMemberDetail.propertyBudget}" title="PropertyBudget" required="true" requiredMessage="The PropertyBudget field is required." rendered="#{memberManagedBean.memberCategory  == 1}" class="form-control"/>
+                                <h:message for="propertyBudget" />
+                                
+                                <h:commandButton value="Update search criteria" action="#{memberManagedBean.updatePropertySearchCriteria(facesContext.externalContext.userPrincipal)}" class='btn btn-default'/>
+                                
+                    </h:panelGrid>
+                </h:form>
+                                
+                                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

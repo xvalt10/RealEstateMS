@@ -5,8 +5,20 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-
-    <body>
+    
+   
+        <script type="text/javascript">
+            function adjustCSSClassOfErrorMessages (){
+                console.log($('#errorMessages').text());
+               $('#errorMessages:contains("Info:")').removeClass().addClass('alert alert-success');
+               $('#errorMessages:contains("Error:")').removeClass().addClass('alert alert-success');     
+                }
+                
+            
+            
+        </script>
+    
+    <body onload="adjustCSSClassOfErrorMessages()">
 
         <ui:composition template="./../templates/basicTemplate.xhtml">
 
@@ -15,14 +27,18 @@
                         <h1><h:outputText value="Subscribe to advertisement package"/></h1>
                         </h:panelGroup>
                 
-                 <h:form>
-                     <h:panelGrid columns="2">
+                <h:form prependId="false">
+                     <h:messages id="errorMessages" class="alert alert-danger" style="padding-left:30px" globalOnly="true"></h:messages>
+                     <h:panelGrid columns="3">
                         <h:outputLabel for="adStartDate" value="Advertisement start date:" />
-                        <p:calendar id="adStartDate" mode="popup" value="#{advertisementManagedBean.adDetails.advertisementStartDate}"/>
+                        <p:calendar id="adStartDate" mode="popup" value="#{advertisementManagedBean.adDetails.advertisementStartDate}" validatorMessage="Enter a start date."/>
+                        <h:message for="adStartDate" class="label label-danger" style="font-size:14px" />
                         <h:outputLabel for="adEndDate" value="Advertisement end date:" />
                         <p:calendar id="adEndDate" mode="popup" value="#{advertisementManagedBean.adDetails.advertisementEndDate}" />
-                        <h:outputLabel for="adEndDate" value="Dimension:" />
-                        <h:inputText value="#{advertisementManagedBean.adDetails.dimension}" class="form-control"/>
+                        <h:message for="adEndDate"/>
+                        <h:outputLabel for="dimension" value="Dimension:" />
+                        <h:inputText id="dimension" value="#{advertisementManagedBean.adDetails.dimension}" class="form-control" validatorMessage="Enter a dimesion of the ad."/>
+                         <h:message for="dimension" class="label label-danger" style="font-size:14px"/>
                     </h:panelGrid>
                      <br></br>
                        <br></br>

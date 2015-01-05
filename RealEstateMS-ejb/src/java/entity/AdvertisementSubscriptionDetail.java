@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AdvertisementSubscriptionDetail.findAll", query = "SELECT a FROM AdvertisementSubscriptionDetail a"),
     @NamedQuery(name = "AdvertisementSubscriptionDetail.findByPackageId", query = "SELECT a FROM AdvertisementSubscriptionDetail a WHERE a.packageId = :packageId"),
     @NamedQuery(name = "AdvertisementSubscriptionDetail.findByDuration", query = "SELECT a FROM AdvertisementSubscriptionDetail a WHERE a.duration = :duration"),
+    @NamedQuery(name = "AdvertisementSubscriptionDetail.findByRequestorId", query = "SELECT a FROM AdvertisementSubscriptionDetail a WHERE a.requestorId = :requestorId"),
     @NamedQuery(name = "AdvertisementSubscriptionDetail.findByDimension", query = "SELECT a FROM AdvertisementSubscriptionDetail a WHERE a.dimension = :dimension"),
     @NamedQuery(name = "AdvertisementSubscriptionDetail.findByAdvertisementStartDate", query = "SELECT a FROM AdvertisementSubscriptionDetail a WHERE a.advertisementStartDate = :advertisementStartDate"),
     @NamedQuery(name = "AdvertisementSubscriptionDetail.findByAdvertisementEndDate", query = "SELECT a FROM AdvertisementSubscriptionDetail a WHERE a.advertisementEndDate = :advertisementEndDate")})

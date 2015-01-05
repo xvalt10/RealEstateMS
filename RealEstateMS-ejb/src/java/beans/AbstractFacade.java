@@ -5,8 +5,10 @@
  */
 package beans;
 
+import entity.PropertyDetails;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -43,6 +45,14 @@ public abstract class AbstractFacade<T> {
         return getEntityManager().createQuery(cq).getResultList();
     }
 
+       public List<T> findRangeForQueryResult(int[] range, String queryString) {
+    Query q=getEntityManager().createNativeQuery(queryString,PropertyDetails.class);
+    q.setMaxResults(range[1] - range[0] + 1);
+        q.setFirstResult(range[0]);
+        return q.getResultList();
+    
+    }
+       
     public List<T> findRange(int[] range) {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));

@@ -6,9 +6,11 @@
 package managedBeans;
 
 import helperbeans.MailSenderBean;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.ejb.Schedule;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.mail.MessagingException;
@@ -69,12 +71,16 @@ public class MailManagedBean {
     public MailManagedBean() {
     }
     
+   
+    
+    
+    
     public void contactAgent(String agentEmail){
         StringBuilder message=new StringBuilder();
         message.append("You have received a contact request from ");
-        message.append(name + ".\n\n");
-        message.append("Contact details - email:"+email+" telephone: "+telephoneNumber + "\n\n");
-        message.append("Message text:" +messageBody);
+        message.append(name).append(".\n\n");
+        message.append("Contact details - email:").append(email).append(" telephone: ").append(telephoneNumber).append("\n\n");
+        message.append("Message text:").append(messageBody);
         
         try {
             mailSenderBean.sendMail(agentEmail, "Realestate Management System - Notification", message.toString());

@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
-    <Scope Scope="Project"/>
+    <Scope Scope="Project">
+        <Node id="seller/subscribeAdPackage.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="buyer/updatePropertySearchCriteria.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="admin/advertisementApproval.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="admin/removeAdvertisementPackage.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="admin/advertisementPackageMgmt.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="seller/userPropertyDetailsMgmt.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="registration.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="templates/header.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="templates/sidepane.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="index.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="admin/editAdvertisementPackage.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="seller/editPropertyDetails.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="propertyDetails.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="*" x="1650" y="150" zoom="true"/>
+        <Node id="viewSearchResults.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="viewRealestate.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="admin/propertyCategoryMgmt.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="seller/sellRealestate.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="login.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="unauthorized.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="admin/reports.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="templates/basicTemplate.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="templates/footer.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="updateProfile.xhtml" x="150" y="750" zoom="true"/>
+    </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

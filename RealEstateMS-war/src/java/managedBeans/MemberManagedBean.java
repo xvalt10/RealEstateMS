@@ -51,16 +51,13 @@ import javax.validation.Validator;
 @ManagedBean
 @SessionScoped
 public class MemberManagedBean {
-    
-      
-    
-    
-    final private static int BUYER=1;
-    final private static int SELLER=2;
-    final private static int AGENT=3;
-    final private static int ADMIN=4;
-    
-    final private static String MEMBER_PREFIX="member";
+
+    final private static int BUYER = 1;
+    final private static int SELLER = 2;
+    final private static int AGENT = 3;
+    final private static int ADMIN = 4;
+
+    final private static String MEMBER_PREFIX = "member";
 
     @EJB
     private PropertyLocationMasterFacade propertyLocationMasterFacade;
@@ -79,8 +76,7 @@ public class MemberManagedBean {
     private AgentMemberDetail agentMemberDetail;
     private BuyerMemberDetail buyerMemberDetail;
     private PropertyLocationMaster propertyLocation;
-    
-    
+
     /**
      * Creates a new instance of NewJSFManagedBean
      */
@@ -91,7 +87,7 @@ public class MemberManagedBean {
     @PostConstruct
     public void init() {
         memberCategory = 1;
-        agentCategory="domestic";
+        agentCategory = "domestic";
         member = new MemberDetail();
         buyerMemberDetail = new BuyerMemberDetail();
         propertyLocation = new PropertyLocationMaster();
@@ -105,8 +101,6 @@ public class MemberManagedBean {
     public void setAgentCategory(String agentCategory) {
         this.agentCategory = agentCategory;
     }
-    
-    
 
     public int getMemberCategory() {
         return memberCategory;
@@ -147,113 +141,142 @@ public class MemberManagedBean {
     public void setAgentMemberDetail(AgentMemberDetail agentMemberDetail) {
         this.agentMemberDetail = agentMemberDetail;
     }
+    
+    
 
     public String encryptPassword(String password) {
 
-       MessageDigest md;
-       StringBuilder sb = new StringBuilder();
+        MessageDigest md;
+        StringBuilder sb = new StringBuilder();
         try {
-            md = MessageDigest.getInstance("SHA-256"); md.update(password.getBytes());
- 
-        byte byteData[] = md.digest();
- 
+            md = MessageDigest.getInstance("SHA-256");
+            md.update(password.getBytes());
+
+            byte byteData[] = md.digest();
+
         //convert the byte to hex format method 1
-        
-        for (int i = 0; i < byteData.length; i++) {
-         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
-        }
+            for (int i = 0; i < byteData.length; i++) {
+                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+            }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(MemberManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-        
+
         return sb.toString();
     }
     
-    public void loadMemberDetails(String username){
-    member=memberDetailFacade.getMemberidByUsername(username);
-    memberCategory=Integer.parseInt(member.getMemberCategoryId().getMemberCategoryId());
-      if (memberCategory == BUYER ) {
-    propertyLocation=propertyLocationMasterFacade.find(member.getBuyerMemberDetail().getLocationId().getLocationId());
-    
-      }
-      else if (memberCategory == AGENT){
-          propertyLocation=propertyLocationMasterFacade.find(member.getAgentMemberDetail().getLocationId().getLocationId());
-      }
-      
-      
-      
-    
+    public String clearMemberDetails(){
+        memberCategory = 1;
+        agentCategory = "domestic";
+        member = new MemberDetail();
+        buyerMemberDetail = new BuyerMemberDetail();
+        propertyLocation = new PropertyLocationMaster();
+        agentMemberDetail = new AgentMemberDetail();
+        
+        return "registration";
     }
     
-    public String updateMemberDetails(String username){
+    public String getUserRole(String username){
+        if(memberDetailFacade.getMemberidByUsername(username)==null){
+       return "no user found.";
+       }
+        else{
+            String memberId=memberDetailFacade.getMemberidByUsername(username).getMemberId();
+       return memberDetailFacade.find(memberId).getMemberCategoryId().getMemberCategoryName();}
+    }
+
+    public String loadMemberDetails(String username, String redirectOutcome) {
+        member = memberDetailFacade.getMemberidByUsername(username);
+        memberCategory = Integer.parseInt(member.getMemberCategoryId().getMemberCategoryId());
+        if (memberCategory == BUYER) {
+            propertyLocation = propertyLocationMasterFacade.find(member.getBuyerMemberDetail().getLocationId().getLocationId());
+
+        } else if (memberCategory == AGENT) {
+            propertyLocation = propertyLocationMasterFacade.find(member.getAgentMemberDetail().getLocationId().getLocationId());
+        }
+        
+        return redirectOutcome;
+
+    }
+
+    public String updatePropertySearchCriteria(String username) {
+
+        propertyLocation.setLocationId(memberDetailFacade.getMemberidByUsername(username).getBuyerMemberDetail().getLocationId().getLocationId());
+        buyerMemberDetail.setMemberId(memberDetailFacade.getMemberidByUsername(username).getMemberId());
+        buyerMemberDetail.setLocationId(propertyLocation);
+        
+        
+        propertyLocationMasterFacade.edit(propertyLocation);
+        memberDetailFacade.edit(member);
+
+        return "success";
+    }
+
+    public String updateMemberDetails(String username) {
         member.setMemberId(memberDetailFacade.getMemberidByUsername(username).getMemberId());
         member.setPassword(encryptPassword(member.getPassword()));
         member.setMemberCategoryId(memberCategoryMasterFacade.find(String.valueOf(memberCategory)));
-        
-        if (memberCategory == BUYER || memberCategory == AGENT){
-        propertyLocation.setLocationId(memberDetailFacade.getMemberidByUsername(username).getBuyerMemberDetail().getLocationId().getLocationId());
+
+        if (memberCategory == BUYER || memberCategory == AGENT) {
+            propertyLocation.setLocationId(memberDetailFacade.getMemberidByUsername(username).getBuyerMemberDetail().getLocationId().getLocationId());
         }
         if (memberCategory == BUYER) {
-            buyerMemberDetail.setMemberId(memberDetailFacade.getMemberidByUsername(username).getMemberId());
-            buyerMemberDetail.setLocationId(propertyLocation);
-            member.setBuyerMemberDetail(buyerMemberDetail);
-           propertyLocationMasterFacade.edit(propertyLocation);     
+//            buyerMemberDetail.setMemberId(memberDetailFacade.getMemberidByUsername(username).getMemberId());
+//            buyerMemberDetail.setLocationId(propertyLocation);
+//            member.setBuyerMemberDetail(buyerMemberDetail);
+            propertyLocationMasterFacade.edit(propertyLocation);
         }
-        
-           if (memberCategory == AGENT) {
+
+        if (memberCategory == AGENT) {
             agentMemberDetail.setMemberId(memberDetailFacade.getMemberidByUsername(username).getMemberId());
             agentMemberDetail.setAgentType(agentCategory);
             agentMemberDetail.setLocationId(propertyLocation);
             member.setAgentMemberDetail(agentMemberDetail);
-             propertyLocationMasterFacade.edit(propertyLocation);     
+            propertyLocationMasterFacade.edit(propertyLocation);
         }
-      
+
         memberDetailFacade.edit(member);
         return "success";
-    
+
     }
 
     public String registerMember() {
-        
+
         member.setPassword(encryptPassword(member.getPassword()));
-       
+
         String memberid = MEMBER_PREFIX + (memberDetailFacade.count() + 1);
         member.setMemberId(memberid);
         member.setMemberCategoryId(memberCategoryMasterFacade.find(String.valueOf(memberCategory)));
         String locationId = String.valueOf(propertyLocationMasterFacade.count() + 1);
-        
+
         propertyLocation.setLocationId(locationId);
         if (memberCategory == BUYER) {
             buyerMemberDetail.setMemberId(memberid);
             buyerMemberDetail.setLocationId(propertyLocation);
             member.setBuyerMemberDetail(buyerMemberDetail);
             propertyLocationMasterFacade.create(propertyLocation);
-           
+
         }
-        
-           if (memberCategory == AGENT) {
+
+        if (memberCategory == AGENT) {
             agentMemberDetail.setMemberId(memberid);
             agentMemberDetail.setAgentType(agentCategory);
             agentMemberDetail.setLocationId(propertyLocation);
             member.setAgentMemberDetail(agentMemberDetail);
-            
+
             propertyLocationMasterFacade.create(propertyLocation);
-           
+
         }
-      
+
         memberDetailFacade.create(member);
         return "success";
 
     }
-    
-    public String signOut(){
-    FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/index.xhtml?faces-redirect=true";
-    
-    }
 
-  
-    
+    public String signOut() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/index.xhtml?faces-redirect=true";
+
+    }
 
 }

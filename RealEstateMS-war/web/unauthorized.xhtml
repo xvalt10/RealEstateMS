@@ -11,11 +11,14 @@
 
         <ui:composition template="./templates/basicTemplate.xhtml">
            
-                <ui:define name="content">
+                <ui:define name="content" >
                 <f:view>
-                  
+                    <h:panelGroup layout="block" class="page-header"><h1>Access Forbidden</h1></h:panelGroup>
+                  <h:panelGroup layout='block' class="alert alert-warning" >
+                     <h:outputText value="You are not authorized to view this content." />
+                    </h:panelGroup>
 
-                    You are not authorized to view this content.
+                    
 
 
 

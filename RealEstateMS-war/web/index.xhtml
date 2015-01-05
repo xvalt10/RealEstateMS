@@ -7,6 +7,13 @@
 
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <style type="text/css">
+        .ui-state-default .ui-icon {
+
+display: none;
+}
+    </style>
 
     <body>
 
@@ -16,23 +23,32 @@
 
 
             <ui:define name="content">
-                
 
-                <h:form>
+
+                <h:form id="addedRealestate" prependId="false">
                     <h:panelGroup layout="block" class="page-header">
                         <h1><h:outputText value="Recently added realestate"/></h1>
                     </h:panelGroup>
 
-                    <c:forEach items="#{propertyManagedBean.propertyDetailsList}" var="property" varStatus="iterRow">
+                    <h:panelGroup layout='block' class="alert alert-success" rendered="#{facesContext.externalContext.userPrincipal!=null}">
+                        <h:outputText value="Welcome #{facesContext.externalContext.userPrincipal}! You are logged in to the Realestate Management System." />
+                    </h:panelGroup>
+
+
+
+                    <c:forEach items="#{propertyManagedBean.getRangeOfPropertyDetails(propertyManagedBean.currentPage)}" var="property" varStatus="iterRow">
                         <h:panelGroup layout="block" class="row" style="margin-bottom: 20px;border-bottom: 1px solid #eeeeee;margin-left: 0px;margin-right:0px;padding-bottom:10px">
 
                             <h:panelGroup layout="block" class="col-sm-4" > 
 
-
+                                <p:lightBox >
+                                    <h:outputLink value="images/#{property.propertyId}">
                                 <h:graphicImage  value="images/#{property.propertyId}" height="100" width="100"/>
+                                    </h:outputLink>
+                                </p:lightBox>
 
                             </h:panelGroup>
-                            
+
                             <h:panelGroup layout="block" class="col-sm-6" > 
                                 <h:panelGrid columns="2">
 
@@ -57,7 +73,7 @@
                                     <h:outputText value="#{property.lumpsumCost.setScale(0)/property.area}  €/m&lt;sup&gt;2 &lt;/sup&gt;" escape="false"/>
                                 </h:panelGrid>
 
-                                
+
 
 
                             </h:panelGroup>
@@ -67,12 +83,58 @@
 
 
 
-                </h:form>
+
+
+                    <h:panelGroup layout="block" class="row" style="text-align:center">
+
+
+
+                        <ul class="pagination" style="margin:auto"> 
+                            <li class="#{propertyManagedBean.currentPage==0?'disabled':''}">
+                                <h:commandLink action="index" >&laquo;
+                                    <f:ajax event="click" listener="#{propertyManagedBean.ajaxSetPageSize(e, propertyManagedBean.currentPage-1)}" render="addedRealestate"/>
+                                </h:commandLink>
+                            </li>  
+                            
+
+                            <c:forEach begin='0' end="#{propertyManagedBean.propertyDetailsList.size()%propertyManagedBean.pageSize ==0?(propertyManagedBean.propertyDetailsList.size()/propertyManagedBean.pageSize)-1:propertyManagedBean.propertyDetailsList.size()/propertyManagedBean.pageSize}" varStatus="iter">
+
+                                    <li class="#{propertyManagedBean.currentPage==iter.index?'active':''}">
+                                        <h:commandLink  action="index" value="#{iter.index+1}">
+                                            <f:ajax event="click" listener="#{propertyManagedBean.ajaxSetPageSize(e, iter.index)}" render="addedRealestate"/>
+
+                                        </h:commandLink>
+                                    </li>
+                                    
+                                </c:forEach>
+                            
+                            <li class="#{propertyManagedBean.currentPage+1>=(propertyManagedBean.propertyDetailsList.size()%propertyManagedBean.pageSize ==0?(propertyManagedBean.propertyDetailsList.size()/propertyManagedBean.pageSize)-1:propertyManagedBean.propertyDetailsList.size()/propertyManagedBean.pageSize)?'disabled':''}">
+                                <h:commandLink action="index" >&raquo;
+                                    <f:ajax event="click" listener="#{propertyManagedBean.ajaxSetPageSize(e, propertyManagedBean.currentPage+1)}" render="addedRealestate"/>
+                                </h:commandLink>
+                            </li>  
+
+                                
+                        </ul>
+
+                    </h:panelGroup>   </h:form>
             </ui:define>
 
 
 
         </ui:composition>
+
+        <script>
+            $(document).ready(function () {
+                $(".Liactive").on('click', function () {
+                    alert('clicked');
+                    $(".pagination li").addClass('active');
+
+                })
+
+            });
+
+        </script>
 
     </body>
 

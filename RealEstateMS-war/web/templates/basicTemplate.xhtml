@@ -14,6 +14,18 @@
         <h:outputScript library="js" name="bootstrap.js"/>
 
         <title>Facelets Template</title>
+        
+        <script>
+            $(document).ready(function(){
+                
+                $(".nav-tabs li").on('click',function(){
+                    $(this).closest($(".nav-tabs")).find("li").removeClass("active");
+                    $(this).addClass("active");
+                    
+                })
+            });
+            
+        </script>
     </h:head>
 
     <h:body>

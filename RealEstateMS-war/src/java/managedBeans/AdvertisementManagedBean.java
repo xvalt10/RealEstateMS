@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
@@ -101,7 +102,7 @@ public class AdvertisementManagedBean {
            propertyApproval.setApprovalDescription("Request for approval has been rejected.");
         }
         propertyApproval.setApproverId(approverId);
-        propertyApprovalFacade.create(propertyApproval);
+        propertyApprovalFacade.edit(propertyApproval);
         
         
     }
@@ -115,11 +116,28 @@ public class AdvertisementManagedBean {
     return propertyApprovalFacade.find(propertyId).getApprovalStatus();}
     }
     
-    public void subscribeToAdPackage(String packageId, String username){
+   
+    
+    public String subscribeToAdPackage(String packageId, String username){
+        if(advertisementSubscriptionDetailFacade.getPackageByUserId(memberDetailFacade.getMemberidByUsername(username)).equalsIgnoreCase("NoSubscription")){
         adDetails.setPackageId(packageId);
         adDetails.setRequestorId(memberDetailFacade.getMemberidByUsername(username));
         adDetails.setDuration(calculateAdDurationIndDays());
         advertisementSubscriptionDetailFacade.create(adDetails);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Info:Subscription to advertisement package "+packageId+" has been successful." ,
+                  ""  );
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return null;
+        }
+        else{
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error:Subscription to advertisement package failed! You have already subscribed to advertisement package "+packageId+"." ,
+                  ""  );
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return null;}
+//            return "alreadySubscribed";
+        
        
         
     }

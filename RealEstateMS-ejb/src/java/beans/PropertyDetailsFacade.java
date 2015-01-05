@@ -20,6 +20,13 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PropertyDetailsFacade extends AbstractFacade<PropertyDetails> {
+    public final static String VALID_PROPERTY_QUERY =     
+            "select * from PropertyDetails pd "
+          + "left join PropertyApproval pa on pd.propertyId=pa.propertyId "
+          + "left join AdvertisementSubscriptionDetail asd on pd.postedBy=asd.requestorId"
+                + " where pa.approvalStatus in ( 'Approved','Activated') "
+                       + "and asd.advertisementEndDate >= GETDATE()";
+    
     @PersistenceContext(unitName = "RealEstateMS-ejbPU")
     private EntityManager em;
 
@@ -44,6 +51,14 @@ public class PropertyDetailsFacade extends AbstractFacade<PropertyDetails> {
      }
      
      
+     public List<PropertyDetails> listValidProperty(){
+         Query query= em.createNativeQuery(VALID_PROPERTY_QUERY,PropertyDetails.class);
+         
+         return (List<PropertyDetails>)query.getResultList();
+         
+     }
+     
+          
      
      public List<PropertyDetails> countPropertySearchResults(String realestateType, String realestateLocality, BigDecimal lowPrice, BigDecimal highPrice, Integer lowArea, Integer highArea, String searchPhrase){
        

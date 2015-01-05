@@ -29,8 +29,10 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
+import pagination.JsfUtil;
 
 /**
  *
@@ -66,6 +68,44 @@ public class PropertyManagedBean {
     private PropertyLocationMaster propertyLocation;
     
     private boolean editFormRendered=false;
+    
+    
+    private int pageSize;
+    private int currentPage;
+
+    public PropertyDetailsFacade getPropertyDetailsFacade() {
+        return propertyDetailsFacade;
+    }
+    
+    
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+    
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+    
+    public void ajaxSetPageSize(AjaxBehaviorEvent event, int page){
+        setCurrentPage(page);
+    }
+    
+    public List<PropertyDetails> getRangeOfPropertyDetails(int page){
+    return propertyDetailsFacade.findRangeForQueryResult(new int[]{page*pageSize,page*pageSize+pageSize-1}, PropertyDetailsFacade.VALID_PROPERTY_QUERY);
+    }
+    
+    public String getValidPropertyQueryString(){
+    return PropertyDetailsFacade.VALID_PROPERTY_QUERY;}
 
     public boolean isEditFormRendered() {
         return editFormRendered;
@@ -97,6 +137,7 @@ public class PropertyManagedBean {
     
     @PostConstruct
     public void init(){
+        pageSize=1;
         propertyCategory=new PropertyCategoryMaster();
         propertyDetails=new PropertyDetails();
         propertyLocation=new PropertyLocationMaster();
@@ -179,6 +220,7 @@ public class PropertyManagedBean {
                 Logger.getLogger(PropertyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        JsfUtil.addSuccessMessage("Image "+event.getFile().getFileName()+"has been uploaded succesfully.");
     
     }
     
@@ -192,7 +234,8 @@ public class PropertyManagedBean {
     propertyCategory=propertyDetails.getCategoryId();
         
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("propertyDetails.xhtml");
+            //FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("propertyId", propertyDetails.getPropertyId());
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/RealEstateMS-war/faces/propertyDetails.xhtml?propertyId="+propertyId);
         } catch (IOException ex) {
             Logger.getLogger(PropertyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -227,9 +270,13 @@ public class PropertyManagedBean {
     public List<PropertyLocationMaster> getPropertyLocations(){
         return propertyLocationFacade.findAll();
     }
-
-     public List<PropertyDetails> getPropertyDetailsList(){
+ public List<PropertyDetails> getAllPropertyDetailsList(){
          List <PropertyDetails> list=propertyDetailsFacade.findAll();
+        return list;
+    }
+    
+     public List<PropertyDetails> getPropertyDetailsList(){
+         List <PropertyDetails> list=propertyDetailsFacade.listValidProperty();
         return list;
     }
     /**

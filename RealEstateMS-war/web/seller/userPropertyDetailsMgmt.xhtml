@@ -22,7 +22,7 @@
 
                     <h:form>
                         
-                        <h:dataTable value="#{propertyManagedBean.loadPropertyByMember(facesContext.externalContext.userPrincipal)}" var="item" class="table">
+                        <h:dataTable value="#{propertyManagedBean.loadPropertyByMember(facesContext.externalContext.userPrincipal)}" var="item" class="table table-striped">
                            
                         <tbody>
                            <h:column>
@@ -74,12 +74,7 @@
                             <h:outputText value="#{item.lumpsumCost}"/>
                         </h:column>
                     
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="PropertyDescription"/>
-                            </f:facet>
-                            <h:outputText value="#{item.propertyDescription}"/>
-                        </h:column>
+                       
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="PropertyTitle"/>
@@ -87,10 +82,10 @@
                             <h:outputText value="#{item.propertyTitle}"/>
                         </h:column>
                             <h:column>
-                           
-                                <h:commandButton value="Edit" action="#{propertyManagedBean.loadProperty(item.propertyId)}"/>
-                                   
-                        </h:column>
+                                
+                                <h:commandButton value="Edit" action="#{propertyManagedBean.loadProperty(item.propertyId)}" style="margin-bottom: 5px"/>
+                                <h:commandButton value="Delete"/>
+                           </h:column>
                         </tbody>
                     </h:dataTable>
                     </h:form>

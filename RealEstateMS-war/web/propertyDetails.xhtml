@@ -13,7 +13,7 @@
             <ui:define name="content">
 
                 <h:panelGroup layout="block" class="page-header">
-                    <h1><h:outputText value="#{propertyManagedBean.propertyDetails.categoryId.categoryName},#{propertyManagedBean.propertyDetails.locationId.city},#{propertyManagedBean.propertyDetails.propertyTitle}"/></h1>
+                    <h1><h:outputText value="#{propertyManagedBean.propertyDetailsFacade.find(param.propertyId).categoryId.categoryName},#{propertyManagedBean.propertyDetailsFacade.find(param.propertyId).locationId.city},#{propertyManagedBean.propertyDetailsFacade.find(param.propertyId).propertyTitle}"/></h1>
                 </h:panelGroup>
 
                 <h:panelGroup layout="block" class="row" style="margin-right:0px;margin-left:0px;">
@@ -21,7 +21,7 @@
                         <h:panelGroup layout="block" class="row" style="margin-bottom: 20px">
                             <h:form>
                                 
-                            <h:commandLink  class="btn btn-default" style="margin-right:5px" >
+                                <h:commandLink  class="btn btn-default" style="margin-right:5px" onclick="window.print()">
                                 <h:outputText class="glyphicon glyphicon-print" /> Print
                             </h:commandLink>
                                
@@ -40,7 +40,7 @@
                         
                         <h:panelGroup layout="block" class="row">
                             <h:panelGroup layout="block" class="col-sm-6"> 
-                                <h:graphicImage  value="images/#{propertyManagedBean.propertyDetails.propertyId}" style="max-width: 100%"/>
+                                <h:graphicImage  value="images/#{propertyManagedBean.propertyDetailsFacade.find(param.propertyId).propertyId}" style="max-width: 100%"/>
                             </h:panelGroup>
 
                             <h:panelGroup layout="block" class="col-sm-6" style="font-size: 14px">  
@@ -49,16 +49,16 @@
                                         <h:outputText value="Locality:" />
                                         
                                     </h:column>
-                                   <h:outputText value="#{propertyManagedBean.propertyDetails.locationId.locality}" />
+                                   <h:outputText value="#{propertyManagedBean.propertyDetailsFacade.find(param.propertyId).locationId.locality}" />
 
                                     <h:column>
                                         <h:outputText value="Area:"/>
                                     </h:column>
-                                    <h:outputText value="#{propertyManagedBean.propertyDetails.area} m&lt;sup&gt;2 &lt;/sup&gt;" escape="false"/>
+                                    <h:outputText value="#{propertyManagedBean.propertyDetailsFacade.find(param.propertyId).area} m&lt;sup&gt;2 &lt;/sup&gt;" escape="false"/>
                                      <h:column>
                                         <h:outputText value="Price:"/>
                                     </h:column>
-                                    <h:outputText value="#{propertyManagedBean.propertyDetails.lumpsumCost.setScale(2)}" escape="false"/>
+                                    <h:outputText value="#{propertyManagedBean.propertyDetailsFacade.find(param.propertyId).lumpsumCost.setScale(2)}" escape="false"/>
                                 </h:panelGrid>
                             </h:panelGroup>
 
@@ -69,7 +69,7 @@
                         </h:panelGroup>  
                         
                          <h:panelGroup layout="block" class="row" style="font-size: 14px">
-                           <h:outputText value="#{propertyManagedBean.propertyDetails.propertyDescription}"/>
+                           <h:outputText value="#{propertyManagedBean.propertyDetailsFacade.find(param.propertyId).propertyDescription}"/>
                         </h:panelGroup> 
                             
                         
@@ -80,10 +80,10 @@
                         
                         <h:panelGrid columns="1">
                             <h:panelGroup layout="block">
-                            <h:outputText class="glyphicon glyphicon-user" style="margin-right:5px"/><h:outputText value="#{propertyManagedBean.propertyDetails.postedBy.name}" />
+                            <h:outputText class="glyphicon glyphicon-user" style="margin-right:5px"/><h:outputText value="#{propertyManagedBean.propertyDetailsFacade.find(param.propertyId).postedBy.name}" />
                             </h:panelGroup>
                            <h:panelGroup layout="block">
-                            <h:outputText class="glyphicon glyphicon-earphone" style="margin-right:5px"/><h:outputText value="#{propertyManagedBean.propertyDetails.postedBy.mobileNumber}" />
+                            <h:outputText class="glyphicon glyphicon-earphone" style="margin-right:5px"/><h:outputText value="#{propertyManagedBean.propertyDetailsFacade.find(param.propertyId).postedBy.mobileNumber}" />
                            </h:panelGroup>
                             <br></br>
                             <h:outputText value="Contact seller/agent" style="margin-bottom: 30px"/> 
@@ -101,7 +101,7 @@
                                 <h:outputText value="Text of email"/>
                                 <h:inputTextarea class="form-control" rows="10" value="#{mailManagedBean.messageBody}"/>
                                 <br></br>
-                                <h:commandButton class="btn btn-default" value="Send to agent" action="#{mailManagedBean.contactAgent(propertyManagedBean.propertyDetails.postedBy.emaiIId)}"/>
+                                <h:commandButton class="btn btn-default" value="Send to agent" action="#{mailManagedBean.contactAgent(propertyManagedBean.propertyDetailsFacade.find(param.propertyId).postedBy.emaiIId)}"/>
                                 
                             </h:form>
                             

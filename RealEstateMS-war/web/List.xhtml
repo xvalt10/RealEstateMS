@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="./templates/basicTemplate.xhtml">
+       
+        <ui:define name="content">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListPropertyDetailsEmpty}" rendered="#{propertyDetailsController.getItems(propertyManagedBean.validPropertyQueryString).rowCount == 0}"/>
+                <h:panelGroup rendered="#{propertyDetailsController.items(propertyManagedBean.validPropertyQueryString).rowCount > 0}">
+                    <h:outputText value="#{propertyDetailsController.pagination.pageFirstItem + 1}..#{propertyDetailsController.pagination.pageLastItem + 1}/#{propertyDetailsController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{propertyDetailsController.previous}" value="#{bundle.Previous} #{propertyDetailsController.pagination.pageSize}" rendered="#{propertyDetailsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{propertyDetailsController.next}" value="#{bundle.Next} #{propertyDetailsController.pagination.pageSize}" rendered="#{propertyDetailsController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{propertyDetailsController.getItems(propertyManagedBean.validPropertyQueryString)}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropertyDetailsTitle_propertyId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.propertyId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropertyDetailsTitle_country}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.country}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropertyDetailsTitle_state}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.state}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropertyDetailsTitle_city}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.city}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropertyDetailsTitle_region}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.region}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropertyDetailsTitle_area}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.area}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropertyDetailsTitle_rate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rate}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropertyDetailsTitle_lumpsumCost}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lumpsumCost}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropertyDetailsTitle_image}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.image}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropertyDetailsTitle_propertyDescription}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.propertyDescription}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropertyDetailsTitle_propertyTitle}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.propertyTitle}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropertyDetailsTitle_postedBy}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.postedBy}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropertyDetailsTitle_categoryId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.categoryId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropertyDetailsTitle_locationId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.locationId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{propertyDetailsController.prepareView}" value="#{bundle.ListPropertyDetailsViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{propertyDetailsController.prepareEdit}" value="#{bundle.ListPropertyDetailsEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{propertyDetailsController.destroy}" value="#{bundle.ListPropertyDetailsDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{propertyDetailsController.prepareCreate}" value="#{bundle.ListPropertyDetailsCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListPropertyDetailsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

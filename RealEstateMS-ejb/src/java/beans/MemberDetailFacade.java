@@ -6,9 +6,12 @@
 package beans;
 
 import entity.MemberDetail;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -18,6 +21,10 @@ import javax.persistence.PersistenceContext;
 @Stateless
 @Named("MemberDetailFacade")
 public class MemberDetailFacade extends AbstractFacade<MemberDetail> {
+    @EJB
+    private MemberCategoryMasterFacade memberCategoryMasterFacade;
+    
+    
     @PersistenceContext(unitName = "RealEstateMS-ejbPU")
     private EntityManager em;
 
@@ -27,7 +34,18 @@ public class MemberDetailFacade extends AbstractFacade<MemberDetail> {
     }
     
     public MemberDetail getMemberidByUsername(String username){
-    return em.createNamedQuery("MemberDetail.findByUsername",MemberDetail.class).setParameter("username", username).getSingleResult();
+        MemberDetail member=null;
+        try{
+        member=em.createNamedQuery("MemberDetail.findByUsername",MemberDetail.class).setParameter("username", username).getSingleResult();
+        }catch(NoResultException e){
+            
+        }
+        return member;
+    }
+    
+    public List<MemberDetail> findAllBuyers(){
+    return em.createNamedQuery("MemberDetail.findByMemberCategoryId").setParameter("memberCategoryId", memberCategoryMasterFacade.find("1")).getResultList();
+    
     }
 
     public MemberDetailFacade() {

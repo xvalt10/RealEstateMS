@@ -21,31 +21,34 @@
                         <h:panelGrid columns="2">
                             
                              <h:outputLabel value="Category:" for="categoryId" />
-                             <h:selectOneMenu id="categoryId" value="#{propertyManagedBean.propertyDetails.categoryId}" title="CategoryId" required="true" requiredMessage="The CategoryId field is required." converter="#{propertyCategoryConverter}">
-                                <!-- TODO: update below reference to list of available items-->
-                                <f:selectItems value="#{propertyManagedBean.propertyCategories}" var="category" itemValue="#{category.categoryId}" itemLabel="#{category.categoryName}"/>
+                             <h:selectOneMenu class="form form-control" id="categoryId" value="#{propertyManagedBean.propertyDetails.categoryId}" title="CategoryId" required="true" requiredMessage="The CategoryId field is required." converter="#{propertyCategoryConverter}">
+                            <f:selectItems value="#{propertyManagedBean.propertyCategories}" var="category" itemValue="#{category.categoryId}" itemLabel="#{category.categoryName}"/>
                             </h:selectOneMenu>
+                                 <h:outputLabel value="Property Description:" for="propertyDescription" />
+                            <h:inputTextarea class="form form-control" id="propertyDescription" value="#{propertyManagedBean.propertyDetails.propertyDescription}" title="PropertyDescription" required="true" requiredMessage="The PropertyDescription field is required."/>
+                            <h:outputLabel  value="Property Title:" for="propertyTitle" />
+                            <h:inputTextarea class="form form-control" id="propertyTitle" value="#{propertyManagedBean.propertyDetails.propertyTitle}" title="PropertyTitle" required="true" requiredMessage="The PropertyTitle field is required."/>
+                            
+                             
+                                
+                               
                             <h:outputLabel value="Country:" for="country" />
-                            <h:inputText id="country" value="#{propertyManagedBean.propertyDetails.country}" title="Country" required="true" requiredMessage="The Country field is required."/>
+                            <h:inputText class="form form-control" id="country" value="#{propertyManagedBean.propertyDetails.country}" title="Country" required="true" requiredMessage="The Country field is required."/>
                             <h:outputLabel value="State:" for="state" />
-                            <h:inputText id="state" value="#{propertyManagedBean.propertyDetails.state}" title="State" required="true" requiredMessage="The State field is required."/>
+                            <h:inputText class="form form-control" id="state" value="#{propertyManagedBean.propertyDetails.state}" title="State" required="true" requiredMessage="The State field is required."/>
                             <h:outputLabel value="City:" for="city" />
-                            <h:inputText id="city" value="#{propertyManagedBean.propertyDetails.city}" title="City" />
+                            <h:inputText class="form form-control" id="city" value="#{propertyManagedBean.propertyDetails.city}" title="City" />
                             <h:outputLabel value="Region:" for="region" />
-                            <h:inputText id="region" value="#{propertyManagedBean.propertyDetails.region}" title="Region" />
+                            <h:inputText class="form form-control" id="region" value="#{propertyManagedBean.propertyDetails.region}" title="Region" />
                             <h:outputLabel value="Area:" for="area" />
-                            <h:inputText id="area" value="#{propertyManagedBean.propertyDetails.area}" title="Area" required="true" requiredMessage="The Area field is required."/>
+                            <h:inputText class="form form-control" id="area" value="#{propertyManagedBean.propertyDetails.area}" title="Area" required="true" requiredMessage="The Area field is required."/>
                             <h:outputLabel value="Rate:" for="rate" />
-                            <h:inputText id="rate" value="#{propertyManagedBean.propertyDetails.rate}" title="Rate" />
-                            <h:outputLabel value="Lumpsum Cost:" for="lumpsumCost" />
-                            <h:inputText id="lumpsumCost" value="#{propertyManagedBean.propertyDetails.lumpsumCost}" title="LumpsumCost" />
+                            <h:inputText class="form form-control" id="rate" value="#{propertyManagedBean.propertyDetails.rate}" title="Rate" />
+                            <h:outputLabel  value="Lumpsum Cost:" for="lumpsumCost" />
+                            <h:inputText class="form form-control" id="lumpsumCost" value="#{propertyManagedBean.propertyDetails.lumpsumCost}" title="LumpsumCost" />
                             <h:outputLabel value="Image:" for="image" />
                             <p:fileUpload fileUploadListener="#{propertyManagedBean.propertyImageUpload}"   id="image" label="Upload image" />
-                            <h:outputLabel value="Property Description:" for="propertyDescription" />
-                            <h:inputText id="propertyDescription" value="#{propertyManagedBean.propertyDetails.propertyDescription}" title="PropertyDescription" required="true" requiredMessage="The PropertyDescription field is required."/>
-                            <h:outputLabel value="Property Title:" for="propertyTitle" />
-                            <h:inputText id="propertyTitle" value="#{propertyManagedBean.propertyDetails.propertyTitle}" title="PropertyTitle" required="true" requiredMessage="The PropertyTitle field is required."/>
-                            <h:commandButton value="Send for approval" action="#{propertyManagedBean.addProperty()}"/>
+                            <h:commandButton class="btn btn-default" value="Send for approval" action="#{propertyManagedBean.addProperty()}"/>
                            
                            
                           
