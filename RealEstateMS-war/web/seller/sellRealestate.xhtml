@@ -18,11 +18,15 @@
                         <h:panelGroup layout="block" class="page-header">
                         <h1><h:outputText value="Add property details"/></h1>
                         </h:panelGroup>
+                        
+                        <h:panelGroup layout="block" class="row" style='padding-left: 10px;padding-right:10px'>
+                            <h:messages class='alert alert-danger' style='padding-left:30px'/>
+                        </h:panelGroup>
                         <h:panelGrid columns="2">
                             
                              <h:outputLabel value="Category:" for="categoryId" />
-                             <h:selectOneMenu class="form form-control" id="categoryId" value="#{propertyManagedBean.propertyDetails.categoryId}" title="CategoryId" required="true" requiredMessage="The CategoryId field is required." converter="#{propertyCategoryConverter}">
-                            <f:selectItems value="#{propertyManagedBean.propertyCategories}" var="category" itemValue="#{category.categoryId}" itemLabel="#{category.categoryName}"/>
+                             <h:selectOneMenu class="form form-control" id="categoryId" value="#{propertyManagedBean.propertyDetails.categoryId}" title="CategoryId" required="true" requiredMessage="The CategoryId field is required." converter="propertyCategoryConverter" >
+                                 <f:selectItems value="#{propertyManagedBean.propertyCategories}" var="category" itemValue="#{category.categoryId}" itemLabel="#{category.categoryName}" />
                             </h:selectOneMenu>
                                  <h:outputLabel value="Property Description:" for="propertyDescription" />
                             <h:inputTextarea class="form form-control" id="propertyDescription" value="#{propertyManagedBean.propertyDetails.propertyDescription}" title="PropertyDescription" required="true" requiredMessage="The PropertyDescription field is required."/>
@@ -46,8 +50,15 @@
                             <h:inputText class="form form-control" id="rate" value="#{propertyManagedBean.propertyDetails.rate}" title="Rate" />
                             <h:outputLabel  value="Lumpsum Cost:" for="lumpsumCost" />
                             <h:inputText class="form form-control" id="lumpsumCost" value="#{propertyManagedBean.propertyDetails.lumpsumCost}" title="LumpsumCost" />
-                            <h:outputLabel value="Image:" for="image" />
-                            <p:fileUpload fileUploadListener="#{propertyManagedBean.propertyImageUpload}"   id="image" label="Upload image" />
+                            <h:outputLabel value="Title image:" for="titleImage" />
+                            <p:fileUpload fileUploadListener="#{propertyManagedBean.propertyImageUpload}" mode="advanced" id="titleImage" label="Upload image" >
+                                <f:attribute name='isTitleImage' value="true"/>
+                            </p:fileUpload>
+                            <h:outputLabel value="Further images:" for="furtherImages" />
+                            <p:fileUpload fileUploadListener="#{propertyManagedBean.propertyImageUpload}" multiple="true" mode="advanced" id="furtherImages" label="Upload image" >
+                                <f:attribute name='isTitleImage' value="false"/>
+                            </p:fileUpload>
+                            
                             <h:commandButton class="btn btn-default" value="Send for approval" action="#{propertyManagedBean.addProperty()}"/>
                            
                            

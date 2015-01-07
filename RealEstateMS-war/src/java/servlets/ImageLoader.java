@@ -6,6 +6,7 @@
 package servlets;
 
 import beans.PropertyDetailsFacade;
+import beans.PropertyImagesFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -21,7 +22,11 @@ import javax.servlet.http.HttpServletResponse;
 public class ImageLoader extends HttpServlet {
 
     @EJB
+    private PropertyImagesFacade propertyImagesFacade;
+
+    @EJB
     PropertyDetailsFacade propertyFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,16 +38,21 @@ public class ImageLoader extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        byte[] imageByteArray = null;
+        String imageId=null;
         
-        String propertyId=request.getPathInfo().substring(1);
-        byte[] imageByteArray= propertyFacade.find(propertyId).getImage();
-        
+        if (request.getPathInfo().contains("ni")) {
+            imageId = request.getPathInfo().substring(3);
+            imageByteArray=propertyImagesFacade.find(Integer.parseInt(imageId)).getPropertyImage();
+        } else {
+            imageId = request.getPathInfo().substring(1);
+            imageByteArray = propertyFacade.find(imageId).getImage();
+        }
+
         response.getOutputStream().write(imageByteArray);
         response.getOutputStream().flush();
-        
-        
-        }
-    
+
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

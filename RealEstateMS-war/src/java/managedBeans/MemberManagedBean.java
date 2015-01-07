@@ -31,6 +31,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import javax.inject.Inject;
 import javax.mail.Message;
@@ -43,6 +44,7 @@ import javax.naming.NamingException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import pagination.JsfUtil;
 
 /**
  *
@@ -76,6 +78,15 @@ public class MemberManagedBean {
     private AgentMemberDetail agentMemberDetail;
     private BuyerMemberDetail buyerMemberDetail;
     private PropertyLocationMaster propertyLocation;
+    private String confirmationPassword;
+
+    public String getConfirmationPassword() {
+        return confirmationPassword;
+    }
+
+    public void setConfirmationPassword(String confirmationPassword) {
+        this.confirmationPassword = confirmationPassword;
+    }
 
     /**
      * Creates a new instance of NewJSFManagedBean
@@ -172,6 +183,7 @@ public class MemberManagedBean {
         buyerMemberDetail = new BuyerMemberDetail();
         propertyLocation = new PropertyLocationMaster();
         agentMemberDetail = new AgentMemberDetail();
+        confirmationPassword="";
         
         return "registration";
     }
@@ -244,7 +256,7 @@ public class MemberManagedBean {
 
         member.setPassword(encryptPassword(member.getPassword()));
 
-        String memberid = MEMBER_PREFIX + (memberDetailFacade.count() + 1);
+        String memberid = MEMBER_PREFIX + (memberDetailFacade.getNewId());
         member.setMemberId(memberid);
         member.setMemberCategoryId(memberCategoryMasterFacade.find(String.valueOf(memberCategory)));
         String locationId = String.valueOf(propertyLocationMasterFacade.count() + 1);
@@ -269,8 +281,19 @@ public class MemberManagedBean {
         }
 
         memberDetailFacade.create(member);
-        return "success";
+        JsfUtil.addSuccessMessage("User " + member.getUsername()+ "has been successfully registered. You can now sign in to enter the member section.");
+        return null;
 
+    }
+    
+    public void isUserNameUnique(AjaxBehaviorEvent event){
+        if (memberDetailFacade.countMemberByUsername(member.getUsername())>0){
+            JsfUtil.addErrorMessage("Username already exists. Choose a different one.");
+        }
+        else{
+        JsfUtil.addSuccessMessage("You have picked a unique username. Proceed with the registration.");
+        }
+    
     }
 
     public String signOut() {

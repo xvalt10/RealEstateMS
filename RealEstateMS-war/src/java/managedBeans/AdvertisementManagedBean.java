@@ -9,6 +9,7 @@ import beans.AdvertisementPackageFacade;
 import beans.AdvertisementSubscriptionDetailFacade;
 import beans.MemberDetailFacade;
 import beans.PropertyApprovalFacade;
+import beans.PropertyDetailsFacade;
 import entity.AdvertisementPackage;
 import entity.AdvertisementSubscriptionDetail;
 
@@ -34,6 +35,8 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
 public class AdvertisementManagedBean {
+    @EJB
+    private PropertyDetailsFacade propertyDetailsFacade;
     
     private final static String STATUS_PENDING="Pending";
     
@@ -51,6 +54,7 @@ public class AdvertisementManagedBean {
     private AdvertisementPackage advertisementPackage;
      private PropertyApproval propertyApproval;
      private AdvertisementSubscriptionDetail adDetails;
+     
 
     public AdvertisementSubscriptionDetail getAdDetails() {
         return adDetails;
@@ -93,6 +97,7 @@ public class AdvertisementManagedBean {
     public void approveAdvertisement(String propertyId, String approverUsername, boolean requestApproved){
         String approverId=memberDetailFacade.getMemberidByUsername(approverUsername).getMemberId();
         propertyApproval.setPropertyId(propertyId);
+        propertyApproval.setPropertyDetails(propertyDetailsFacade.find(propertyId));
         if(requestApproved){
         propertyApproval.setApprovalStatus("Approved");
         propertyApproval.setApprovalDescription("Advertisement can be published.");
@@ -103,6 +108,7 @@ public class AdvertisementManagedBean {
         }
         propertyApproval.setApproverId(approverId);
         propertyApprovalFacade.edit(propertyApproval);
+        propertyApproval=new PropertyApproval();
         
         
     }

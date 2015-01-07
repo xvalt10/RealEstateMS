@@ -19,10 +19,10 @@
                     
                    
 
-
-                    <h:form>
+                    <h:form id="realestateByMemberForm" prependId="false">
+                        <h:messages errorClass="alert alert-danger" infoClass="alert alert-success" style="list-style-type: none;padding-left: 0px"/>
                         
-                        <h:dataTable value="#{propertyManagedBean.loadPropertyByMember(facesContext.externalContext.userPrincipal)}" var="item" class="table table-striped">
+                        <h:dataTable id="propertyDataTable" value="#{propertyManagedBean.loadPropertyByMember(facesContext.externalContext.userPrincipal)}" var="item" class="table table-striped">
                            
                         <tbody>
                            <h:column>
@@ -84,7 +84,9 @@
                             <h:column>
                                 
                                 <h:commandButton value="Edit" action="#{propertyManagedBean.loadProperty(item.propertyId)}" style="margin-bottom: 5px"/>
-                                <h:commandButton value="Delete"/>
+                                <h:commandButton value="Delete" >
+                                    <f:ajax render="@form"  execute="propertyDataTable" event="click" listener="#{propertyManagedBean.deleteProperty(event,item.propertyId)}"/>
+                                </h:commandButton>
                            </h:column>
                         </tbody>
                     </h:dataTable>

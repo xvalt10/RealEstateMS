@@ -38,7 +38,9 @@
                         <h:outputLabel value="Current image:" for="Current image" />
                         <h:graphicImage id="currentImage" value="/faces/images/#{propertyManagedBean.propertyDetails.propertyId}" height="50" width="50"/>
                         <h:outputLabel  value="Image:" for="image" />
-                        <p:fileUpload update='messages' fileUploadListener="#{propertyManagedBean.propertyImageUpload}"   id="image" label="Upload image" />
+                        <p:fileUpload update='messages' fileUploadListener="#{propertyManagedBean.propertyImageUpload}"   id="image" label="Upload image" >
+                                <f:attribute name='isTitleImage' value="true"/>
+                            </p:fileUpload>
                           <p:growl id="messages" showDetail="true" />
                         <h:commandButton value="Update"  action="#{propertyManagedBean.editProperty()}" class="btn btn-primary"/>
                         

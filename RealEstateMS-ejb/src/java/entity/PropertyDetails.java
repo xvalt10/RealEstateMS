@@ -7,6 +7,7 @@ package entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,11 +18,13 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -49,6 +52,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PropertyDetails.findMinArea", query = "SELECT MIN(p.area) FROM PropertyDetails p")
 })
 public class PropertyDetails implements Serializable {
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "propertyId")
+    private Collection<PropertyImages> propertyImagesCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -81,9 +89,6 @@ public class PropertyDetails implements Serializable {
     private BigDecimal rate;
     @Column(name = "lumpsumCost")
     private BigDecimal lumpsumCost;
-    @Lob
-    @Column(name = "image")
-    private byte[] image;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 256)
@@ -186,13 +191,6 @@ public class PropertyDetails implements Serializable {
         this.lumpsumCost = lumpsumCost;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
 
     public String getPropertyDescription() {
         return propertyDescription;
@@ -265,6 +263,24 @@ public class PropertyDetails implements Serializable {
     @Override
     public String toString() {
         return "entity.PropertyDetails[ propertyId=" + propertyId + " ]";
+    }
+
+
+    @XmlTransient
+    public Collection<PropertyImages> getPropertyImagesCollection() {
+        return propertyImagesCollection;
+    }
+
+    public void setPropertyImagesCollection(Collection<PropertyImages> propertyImagesCollection) {
+        this.propertyImagesCollection = propertyImagesCollection;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
     
 }

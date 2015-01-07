@@ -33,6 +33,11 @@ public class MemberDetailFacade extends AbstractFacade<MemberDetail> {
         return em;
     }
     
+    public String getNewId(){
+        int maxid=(Integer) em.createNativeQuery("select MAX(CAST(SUBSTRING(memberId,7,LEN(memberId)) as INT)) from MemberDetail").getSingleResult();
+        return String.valueOf(maxid+1);  
+    }
+    
     public MemberDetail getMemberidByUsername(String username){
         MemberDetail member=null;
         try{
@@ -46,6 +51,10 @@ public class MemberDetailFacade extends AbstractFacade<MemberDetail> {
     public List<MemberDetail> findAllBuyers(){
     return em.createNamedQuery("MemberDetail.findByMemberCategoryId").setParameter("memberCategoryId", memberCategoryMasterFacade.find("1")).getResultList();
     
+    }
+    
+    public int countMemberByUsername(String username){
+    return em.createNamedQuery("MemberDetail.findByUsername").setParameter("username", username).getResultList().size();
     }
 
     public MemberDetailFacade() {

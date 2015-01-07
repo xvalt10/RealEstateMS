@@ -8,6 +8,18 @@
 
     <h:head>
         <h:outputStylesheet name="./css/bootstrap.css"/>
+        <script>
+          
+            
+            function checkIfPasswordsMatch(){
+               
+                if ($("#password").val()!==$("#confirmPassword").val()){
+                    $("#confirmPasswordError").text("Passwords do not match.").removeClass().addClass("label label-danger");
+                    
+                }
+                else{$("#confirmPasswordError").text("").removeClass().addClass("label label-success");}
+            }
+        </script>
     </h:head>
 
     <body>
@@ -20,10 +32,11 @@
                     <f:view>
 
 
-                        <h:form id="registrationForm">
+                        <h:form id="registrationForm" prependId="false">
                             <h:panelGroup layout="block" class="page-header">
                             <h1><h:outputText value="Member Registration"/></h1>
                             </h:panelGroup>
+                            <h:messages id="messages" errorClass="alert alert-danger" style="padding-left: 0px;list-style-type: none" infoClass="alert alert-success" globalOnly="true"/>
                             <h:panelGrid columns="3">
 
                                 <h:outputLabel value="Member category:" for="memberCategoryId" />
@@ -44,12 +57,20 @@
                                 <h:outputLabel/>
 
                                 <h:outputLabel value="Username:" for="username" />
-                                <h:inputText class="form form-control" id="username" value="#{memberManagedBean.member.username}" title="Username" />
-                                <h:message for="username" />
+                                <h:inputText class="form form-control" id="username" value="#{memberManagedBean.member.username}" title="Username" >
+                                    <f:ajax event="change" execute="username" listener="#{memberManagedBean.isUserNameUnique(event)}" render="messages"/>
+                                </h:inputText>
+                                <h:message id="usernameErrorMessage" for="username" />
 
                                 <h:outputLabel value="Password:" for="password" />
                                 <h:inputSecret class="form form-control" id="password" value="#{memberManagedBean.member.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
                                 <h:message for="password" />
+                                
+                                <h:outputLabel value="Reenter password:" for="confirmPassword" />
+                                <h:inputSecret class="form form-control" id="confirmPassword" value="#{memberManagedBean.confirmationPassword}" title="Password" required="true" requiredMessage="The Password field is required.">
+                                    <f:ajax event="change" onevent="checkIfPasswordsMatch"/>
+                                </h:inputSecret>
+                                <h:message id="confirmPasswordError" for="confirmPassword" style="font-size:100%"/>
 
                                 <h:outputLabel/>
                                 <h:outputLabel/>

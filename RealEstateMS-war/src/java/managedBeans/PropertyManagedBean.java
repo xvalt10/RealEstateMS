@@ -9,14 +9,17 @@ import beans.MemberDetailFacade;
 import beans.PropertyApprovalFacade;
 import beans.PropertyCategoryMasterFacade;
 import beans.PropertyDetailsFacade;
+import beans.PropertyImagesFacade;
 import beans.PropertyLocationMasterFacade;
 import entity.MemberDetail;
 import entity.PropertyApproval;
 import entity.PropertyCategoryMaster;
 import entity.PropertyDetails;
+import entity.PropertyImages;
 import entity.PropertyLocationMaster;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +44,8 @@ import pagination.JsfUtil;
 @ManagedBean
 @SessionScoped
 public class PropertyManagedBean {
+    @EJB
+    private PropertyImagesFacade propertyImagesFacade;
     
 
     @EJB
@@ -54,14 +59,20 @@ public class PropertyManagedBean {
     
     
     
+    
+    
     @EJB
     private MemberDetailFacade memberDetailsFacade;
+    
+    private List<byte[]> listOfImageByteArrays;
     
     private static final int BUFFER_SIZE=6124;
     
     private PropertyCategoryMaster propertyCategory;
     
     private PropertyDetails propertyDetails;
+    
+    private PropertyImages propertyImages;
     
     private Map<String, Object> propertyCategoriesMap;
     
@@ -137,10 +148,12 @@ public class PropertyManagedBean {
     
     @PostConstruct
     public void init(){
-        pageSize=1;
+        pageSize=5;
         propertyCategory=new PropertyCategoryMaster();
         propertyDetails=new PropertyDetails();
         propertyLocation=new PropertyLocationMaster();
+        propertyImages=new PropertyImages();
+        listOfImageByteArrays=new ArrayList<>();
         
     
     }
@@ -188,16 +201,24 @@ public class PropertyManagedBean {
         propertyLocation.setLocality(propertyDetails.getRegion());
         propertyLocationFacade.create(propertyLocation);
         
+       
+        
         propertyDetails.setPropertyId(propertyid);
         propertyDetails.setLocationId(propertyLocation);
         propertyDetails.setPostedBy(memberDetailsFacade.getMemberidByUsername(getCurrentUserName()));
         
+        
+        
         propertyDetailsFacade.create(propertyDetails);
         
+         for(byte[] image:listOfImageByteArrays){
+             propertyImages.setImageId(propertyImagesFacade.getNewId());
+        propertyImages.setPropertyId(propertyDetailsFacade.find(propertyid));
+        propertyImages.setPropertyImage(image);
+        propertyImagesFacade.create(propertyImages);
+        }
         
-        
-        
-        
+         JsfUtil.addSuccessMessage("Property has been succesfully saved with id:"+propertyid);
     }
     
     public String getCurrentUserName(){
@@ -206,10 +227,15 @@ public class PropertyManagedBean {
     }
     
     public void propertyImageUpload(FileUploadEvent event){
+        boolean titleImage=Boolean.valueOf(event.getComponent().getAttributes().get("isTitleImage").toString());
         InputStream inputStream= null;
         try {
             inputStream = event.getFile().getInputstream();
-            propertyDetails.setImage(IOUtils.toByteArray(inputStream));
+            if(titleImage){
+            propertyDetails.setImage(IOUtils.toByteArray(inputStream));}
+            else{
+            listOfImageByteArrays.add(IOUtils.toByteArray(inputStream));
+            }
             
         } catch (IOException ex) {
             Logger.getLogger(PropertyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -223,6 +249,8 @@ public class PropertyManagedBean {
         JsfUtil.addSuccessMessage("Image "+event.getFile().getFileName()+"has been uploaded succesfully.");
     
     }
+    
+   
     
     public String findPropertyCategoryName(String categoryId){
     return propertyCategoryFacade.getCategoryNameByCategoryId(categoryId);
@@ -256,6 +284,13 @@ public class PropertyManagedBean {
     
     
     }
+    public void deleteProperty(AjaxBehaviorEvent event,String propertyId){
+        propertyDetails=propertyDetailsFacade.find(propertyId);
+        propertyDetailsFacade.remove(propertyDetails);
+        JsfUtil.addSuccessMessage("Property with id " + propertyId + " has been successfully deleted.");
+    
+    }
+    
     
   public List<PropertyDetails> loadPropertyByMember(String username){
       MemberDetail member=memberDetailsFacade.getMemberidByUsername(username);

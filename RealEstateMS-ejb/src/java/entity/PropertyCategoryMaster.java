@@ -37,6 +37,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "PropertyCategoryMaster.findBySellerCommission", query = "SELECT p FROM PropertyCategoryMaster p WHERE p.sellerCommission = :sellerCommission"),
     @NamedQuery(name = "PropertyCategoryMaster.findByAgentCommission", query = "SELECT p FROM PropertyCategoryMaster p WHERE p.agentCommission = :agentCommission")})
 public class PropertyCategoryMaster implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "buyerCommission")
+    private int buyerCommission;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "sellerCommission")
+    private int sellerCommission;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -54,14 +62,6 @@ public class PropertyCategoryMaster implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "categoryDescription")
     private String categoryDescription;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "buyerCommission")
-    private Integer buyerCommission;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "sellerCommission")
-    private Integer sellerCommission;
     @Column(name = "agentCommission")
     private Integer agentCommission;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
@@ -106,21 +106,6 @@ public class PropertyCategoryMaster implements Serializable {
         this.categoryDescription = categoryDescription;
     }
 
-    public Integer getBuyerCommission() {
-        return buyerCommission;
-    }
-
-    public void setBuyerCommission(Integer buyerCommission) {
-        this.buyerCommission = buyerCommission;
-    }
-
-    public Integer getSellerCommission() {
-        return sellerCommission;
-    }
-
-    public void setSellerCommission(Integer sellerCommission) {
-        this.sellerCommission = sellerCommission;
-    }
 
     public Integer getAgentCommission() {
         return agentCommission;
@@ -162,6 +147,22 @@ public class PropertyCategoryMaster implements Serializable {
     @Override
     public String toString() {
         return "entity.PropertyCategoryMaster[ categoryId=" + categoryId + " ]";
+    }
+
+    public int getBuyerCommission() {
+        return buyerCommission;
+    }
+
+    public void setBuyerCommission(int buyerCommission) {
+        this.buyerCommission = buyerCommission;
+    }
+
+    public int getSellerCommission() {
+        return sellerCommission;
+    }
+
+    public void setSellerCommission(int sellerCommission) {
+        this.sellerCommission = sellerCommission;
     }
     
 }
